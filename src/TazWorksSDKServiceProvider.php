@@ -16,7 +16,7 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 	public function boot(): void
 	{
 		$this->publishes([
-			__DIR__ . '/../resources/config/tazworks.php' => $this->app->configPath('tazworks.php'),
+			__DIR__ . '/../resources/config/taz_works.php' => $this->app->configPath('taz_works.php'),
 		]);
 
 //		if ($this->app->runningInConsole()) {
@@ -50,8 +50,8 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 		parent::register();
 
 		$this->mergeConfigFrom(
-			__DIR__ . '/../resources/config/tazworks.php',
-			'tazworks'
+			__DIR__ . '/../resources/config/taz_works.php',
+			'taz_works'
 		);
 
 		$this->app->singleton(TazWorksClient::class, static function (Container $container) {
