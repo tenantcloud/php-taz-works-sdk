@@ -5,16 +5,20 @@ namespace TenantCloud\TazWorksSDK\Clients\Applicants;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Crell\Serde\Attributes\DateField;
+use Crell\Serde\Attributes\Field;
 use TenantCloud\TazWorksSDK\TazAssert;
 use Webmozart\Assert\Assert;
 
-class UpdateApplicantDTO
+class UpsertApplicantDTO
 {
-	public function __construct(
-		public readonly string $firstName,
-		public readonly string $lastName,
-		public readonly string $email,
-		public readonly ?string $ssn = null,
+	#[Field(serializedName: 'applicantGuid')]
+	public ?string $id = null;
+
+	private function __construct(
+		public readonly string              $firstName,
+		public readonly string              $lastName,
+		public readonly string              $email,
+		public readonly ?string             $ssn = null,
 		#[DateField(format: 'Y-m-d')]
 		public readonly ?\DateTimeImmutable $dateOfBirth = null,
 	)

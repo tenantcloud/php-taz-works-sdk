@@ -4,5 +4,6 @@ namespace TenantCloud\TazWorksSDK\Clients\Applicants;
 
 interface ApplicantsApi
 {
-	public function create(CreateApplicantDTO $data): ApplicantDTO;
+	public function create(UpsertApplicantDTO $data): ApplicantDTO;
+	public function update(string $id, UpsertApplicantDTO $data): ApplicantDTO;
 }

@@ -2,7 +2,7 @@
 
 use Carbon\CarbonImmutable;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\CreateApplicantDTO;
+use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\SubmitOrderDTO;
 use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
 use TenantCloud\TazWorksSDK\Searches\SearchResultType;
@@ -18,7 +18,12 @@ test('something works', function () {
 	$clientProductGuid = '02f4d895-871e-47f7-9fec-99ed59532c60'; // Essential  Background
 
 	$applicant = $clientApi->applicants()->create(
-		CreateApplicantDTO::testBadResults()
+		UpsertApplicantDTO::testGoodResults()
+	);
+
+	$applicant = $clientApi->applicants()->update(
+		$applicant->id,
+		UpsertApplicantDTO::testBadResults()
 	);
 
 	$order = $clientApi->orders()->submit(new SubmitOrderDTO(
@@ -28,9 +33,11 @@ test('something works', function () {
 
 	sleep(5);
 
-	foreach ($clientApi->orders()->searches()->list($order->id) as $orderSearch) {
-		var_dump(
-			$clientApi->orders()->searches()->results($order->id, $orderSearch->id)
-		);
-	}
+	var_dump((string) $client->httpClient->get("v1/clients/7f8feafb-745b-4ea2-b50a-98b76da39c38/orders/{$order->id}/resultsAsPdf")->getBody());
+
+//	foreach ($clientApi->orders()->searches()->list($order->id) as $orderSearch) {
+//		var_dump(
+//			$clientApi->orders()->searches()->results($order->id, $orderSearch->id)
+//		);
+//	}
 });
