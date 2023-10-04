@@ -14,8 +14,11 @@ class UpsertApplicantDTO
 	#[Field(serializedName: 'applicantGuid')]
 	public ?string $id = null;
 
+	public readonly bool $noMiddleName;
+
 	public function __construct(
 		public readonly string              $firstName,
+		public readonly ?string              $middleName,
 		public readonly string              $lastName,
 		public readonly string              $email,
 		public readonly ?string             $ssn = null,
@@ -26,6 +29,8 @@ class UpsertApplicantDTO
 		if ($ssn) {
 			TazAssert::ssn($this->ssn);
 		}
+
+		$this->noMiddleName = $this->middleName === null;
 	}
 
 	/**
@@ -35,6 +40,7 @@ class UpsertApplicantDTO
 	{
 		return new self(
 			firstName: 'Joe',
+			middleName: null,
 			lastName: 'Clean',
 			email: 'o.prypkhan@tenantcloud.com',
 			ssn: '111-22-3333',
@@ -49,6 +55,7 @@ class UpsertApplicantDTO
 	{
 		return new self(
 			firstName: 'Hank',
+			middleName: null,
 			lastName: 'Mess',
 			email: 'o.prypkhan@tenantcloud.com',
 			ssn: '333-22-1111',
