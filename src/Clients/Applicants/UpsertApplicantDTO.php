@@ -14,7 +14,7 @@ class UpsertApplicantDTO
 	#[Field(serializedName: 'applicantGuid')]
 	public ?string $id = null;
 
-	private function __construct(
+	public function __construct(
 		public readonly string              $firstName,
 		public readonly string              $lastName,
 		public readonly string              $email,
