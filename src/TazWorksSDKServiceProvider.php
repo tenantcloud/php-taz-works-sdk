@@ -27,10 +27,8 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 
 		$router->middleware(AuthorizeMiddleware::class)
 			->prefix($config->get('taz_works.webhooks.prefix'))
-			->group(static function () use ($router) {
-				$router->post('/', WebhookController::class)
-					->name('taz_works.webhooks');
-			});
+			->post('/', WebhookController::class)
+			->name('taz_works.webhooks');
 	}
 
 	public function register(): void

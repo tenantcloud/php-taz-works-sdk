@@ -13,7 +13,6 @@ final class WebhookController
 {
 	public function __construct(
 		private readonly SerdeCommon $serializer,
-		private readonly LoggerInterface $logger,
 		private readonly Dispatcher $events,
 	)
 	{
@@ -22,7 +21,7 @@ final class WebhookController
 	/**
 	 * Example URL: POST /webhooks/taz_works
 	 */
-	public function store(Request $request): Response
+	public function __invoke(Request $request): Response
 	{
 		// Event type is not supported by the SDK, ignore
 		if (!WebhookEventType::tryFrom($request->input('event'))) {
