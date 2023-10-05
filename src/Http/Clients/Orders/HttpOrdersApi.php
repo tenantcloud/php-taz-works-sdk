@@ -2,8 +2,12 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Clients\Orders;
 
+use Carbon\CarbonInterval;
+use Illuminate\Queue\SyncQueue;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrdersApi;
+use TenantCloud\TazWorksSDK\Clients\Orders\OrderSubmittedEvent;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchesApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\SubmitOrderDTO;
 use TenantCloud\TazWorksSDK\Http\Clients\Orders\Searches\HttpOrderSearchesApi;
@@ -24,11 +28,15 @@ class HttpOrdersApi implements OrdersApi
 
 	public function submit(SubmitOrderDTO $data): OrderDTO
 	{
-		return $this->httpTazWorksClient->performJsonRequest(
+		$order = $this->httpTazWorksClient->performJsonRequest(
 			method: 'POST',
 			url: 'orders',
 			requestData: $data,
 			responseDataClass: OrderDTO::class,
 		);
+
+		$this->httpTazWorksClient->events?->dispatch(new OrderSubmittedEvent($order));
+
+		return $order;
 	}
 }

@@ -4,7 +4,6 @@ namespace TenantCloud\TazWorksSDK\Http\Clients;
 
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantsApi;
 use TenantCloud\TazWorksSDK\Clients\ClientApi;
-use TenantCloud\TazWorksSDK\Clients\Orders\OrderApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrdersApi;
 use TenantCloud\TazWorksSDK\Http\Clients\Applicants\HttpApplicantsApi;
 use TenantCloud\TazWorksSDK\Http\Clients\Orders\HttpOrdersApi;

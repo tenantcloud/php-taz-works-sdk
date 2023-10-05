@@ -2,14 +2,17 @@
 
 namespace TenantCloud\TazWorksSDK;
 
+use Crell\Serde\SerdeCommon;
 use Illuminate\Config\Repository as ConfigRepository;
-use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
+use TenantCloud\TazWorksSDK\EventImitation\EventImitatingEventDispatcher;
 use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
+use TenantCloud\TazWorksSDK\Http\Serialization\SerializerFactory;
+use TenantCloud\TazWorksSDK\Http\Webhooks\AuthorizeMiddleware;
+use TenantCloud\TazWorksSDK\Http\Webhooks\WebhookController;
 
 class TazWorksSDKServiceProvider extends ServiceProvider
 {
@@ -19,30 +22,15 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 			__DIR__ . '/../resources/config/taz_works.php' => $this->app->configPath('taz_works.php'),
 		]);
 
-//		if ($this->app->runningInConsole()) {
-//			$this->commands([
-//				EnableCommand::class,
-//				DisableCommand::class,
-//				ListCommand::class,
-//			]);
-//		}
-//
-//		$config = $this->app->make(ConfigRepository::class);
-//		$router = $this->app->make(Router::class);
-//
-//		$router->middleware(ValidateSignatureMiddleware::class)
-//			->prefix($config->get('rentler.webhooks.prefix'))
-//			->group(static function () use ($router) {
-//				$router->post('listings/matched', ListingsMatchedController::class)
-//					->name('rentler.webhooks.listings.matched');
-//				$router->post('preferences/matched', PreferencesMatchedController::class)
-//					->name('rentler.webhooks.preferences.matched');
-//
-//				$router->post('leads/created', LeadCreatedController::class)
-//					->name('rentler.webhooks.leads.created');
-//				$router->post('leads/updated', LeadUpdatedController::class)
-//					->name('rentler.webhooks.leads.updated');
-//			});
+		$config = $this->app->make(ConfigRepository::class);
+		$router = $this->app->make(Router::class);
+
+		$router->middleware(AuthorizeMiddleware::class)
+			->prefix($config->get('taz_works.webhooks.prefix'))
+			->group(static function () use ($router) {
+				$router->post('/', WebhookController::class)
+					->name('taz_works.webhooks');
+			});
 	}
 
 	public function register(): void
@@ -54,40 +42,19 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 			'taz_works'
 		);
 
-		$this->app->singleton(TazWorksClient::class, static function (Container $container) {
+		$this->app->bind(AuthorizeMiddleware::class, function (Container $container) {
 			$config = $container->make(ConfigRepository::class);
 
-			return new HttpTazWorksClient(
-				$config->get('taz_works.base_url'),
-				$config->get('taz_works.api_token'),
-				$container->make(LoggerInterface::class),
+			return new AuthorizeMiddleware(
+				$config->get('taz_works.webhooks.authorization'),
 			);
 		});
 
-//		$this->app->bind(ValidateSignatureMiddleware::class, function (Container $container) {
-//			$config = $container->make(ConfigRepository::class);
+		$this->app->singleton('taz_works.serializer', fn () => SerializerFactory::make());
+
+		//		$config = $this->app->make(ConfigRepository::class);
 //
-//			return new ValidateSignatureMiddleware(
-//				$config->get('rentler.webhooks.secret'),
-//			);
-//		});
-//
-//		$config = $this->app->make(ConfigRepository::class);
-//
-//		if (!$config->get('rentler.fake_client')) {
-//			$this->app->singleton(RentlerClient::class, static function (Container $container) {
-//				$config = $container->make(ConfigRepository::class);
-//
-//				return new RentlerClientImpl(
-//					$config->get('rentler.base_url'),
-//					$config->get('rentler.auth_base_url'),
-//					$config->get('rentler.client_id'),
-//					$config->get('rentler.client_secret'),
-//					new CombinedTokenCache([$container->make(LaravelCacheTokenCache::class)]),
-//					$container->make(LoggerInterface::class),
-//				);
-//			});
-//		} else {
+//		if ($config->get('rentler.fake_client')) {
 //			$this->app->singleton(RentlerClient::class, static function (Container $container) {
 //				$config = $container->make(ConfigRepository::class);
 //
@@ -99,6 +66,22 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 //				);
 //			});
 //		}
+		$this->app->singleton(TazWorksClient::class, static function (Container $container) {
+			$config = $container->make(ConfigRepository::class);
+
+			return new HttpTazWorksClient(
+				$config->get('taz_works.base_url'),
+				$config->get('taz_works.api_token'),
+				$container->make('taz_works.serializer'),
+				$config->get('taz_works.webhooks.imitate') ? $container->make(EventImitatingEventDispatcher::class) : null,
+				$container->make(LoggerInterface::class),
+			);
+		});
+
+		$this->app
+			->when(WebhookController::class)
+			->needs(SerdeCommon::class)
+			->give('taz_works.serializer');
 	}
 }
 

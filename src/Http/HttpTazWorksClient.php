@@ -9,6 +9,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,6 @@ class HttpTazWorksClient implements TazWorksClient
 	private readonly HandlerStack $handlerStack;
 	/** todo: readonly in PHP 8.2 */
 	public Client $httpClient;
-	public readonly SerdeCommon $serializer;
 
 	/**
 	 * @api
@@ -41,12 +41,13 @@ class HttpTazWorksClient implements TazWorksClient
 	public function __construct(
 		private readonly string $baseUrl,
 		string $apiToken,
+		public readonly SerdeCommon $serializer,
+		public readonly ?EventDispatcherInterface $events = null,
 		LoggerInterface $logger = null,
 		private readonly int $timeout = 30,
 	) {
 		$this->handlerStack = $this->buildHandlerStack($apiToken, $logger);
 		$this->httpClient = $this->buildHttpClient($baseUrl, $timeout, $this->handlerStack);
-		$this->serializer = SerializerFactory::make();
 	}
 
 	public function client(string $id): ClientApi

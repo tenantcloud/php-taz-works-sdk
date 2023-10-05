@@ -12,4 +12,12 @@ return [
 			],
 		]
 	],
+
+	'webhooks' => [
+		'authorization' => env('TAZ_WORKS_WEBHOOKS_AUTHORIZATION', 'test'),
+
+		'prefix' => 'webhooks/taz_works',
+
+		'imitate' => env('TAZ_WORKS_IMITATE_EVENTS', true),
+	],
 ];
