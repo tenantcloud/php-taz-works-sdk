@@ -9,7 +9,8 @@ class OrderDTO
 	public function __construct(
 		#[Field(serializedName: 'orderGuid')]
 		public readonly string      $id,
-		public readonly OrderStatus $orderStatus,
+		#[Field(serializedName: 'orderStatus')]
+		public readonly OrderStatus $status,
 		public readonly ?string     $externalIdentifier = null,
 	)
 	{
