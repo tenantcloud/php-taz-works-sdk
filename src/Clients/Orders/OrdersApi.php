@@ -8,5 +8,7 @@ interface OrdersApi
 {
 	public function searches(): OrderSearchesApi;
 
+	public function find(string $id): OrderDTO;
+
 	public function submit(SubmitOrderDTO $data): OrderDTO;
 }

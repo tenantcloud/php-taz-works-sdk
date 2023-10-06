@@ -10,7 +10,7 @@ class OrderDTO
 		#[Field(serializedName: 'orderGuid')]
 		public readonly string      $id,
 		public readonly OrderStatus $orderStatus,
-		public readonly ?string     $externalIdentifier,
+		public readonly ?string     $externalIdentifier = null,
 	)
 	{
 	}

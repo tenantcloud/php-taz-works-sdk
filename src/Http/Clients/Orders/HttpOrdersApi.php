@@ -26,6 +26,16 @@ class HttpOrdersApi implements OrdersApi
 		return new HttpOrderSearchesApi($this->httpTazWorksClient);
 	}
 
+	public function find(string $id): OrderDTO
+	{
+		return $this->httpTazWorksClient->performJsonRequest(
+			method: 'GET',
+			url: "orders/{$id}",
+			requestData: null,
+			responseDataClass: OrderDTO::class,
+		);
+	}
+
 	public function submit(SubmitOrderDTO $data): OrderDTO
 	{
 		$order = $this->httpTazWorksClient->performJsonRequest(
