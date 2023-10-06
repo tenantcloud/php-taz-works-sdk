@@ -17,6 +17,7 @@ class HttpOrdersApi implements OrdersApi
 {
 	public function __construct(
 		private readonly HttpTazWorksClient $httpTazWorksClient,
+		private readonly string $clientId,
 	)
 	{
 	}
@@ -45,7 +46,7 @@ class HttpOrdersApi implements OrdersApi
 			responseDataClass: OrderDTO::class,
 		);
 
-		$this->httpTazWorksClient->events?->dispatch(new OrderSubmittedEvent($order));
+		$this->httpTazWorksClient->events?->dispatch(new OrderSubmittedEvent($order, $this->clientId));
 
 		return $order;
 	}

@@ -16,8 +16,8 @@ class ImitateOrderCompletedJob implements ShouldQueue
 	use Queueable;
 
 	public function __construct(
-		private readonly string $clientId,
 		private readonly string $orderId,
+		private readonly string $clientId,
 	) {}
 
 	public function handle(TazWorksClient $tazWorks, Dispatcher $events): void

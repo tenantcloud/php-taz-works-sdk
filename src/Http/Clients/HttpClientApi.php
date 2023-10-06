@@ -33,6 +33,6 @@ class HttpClientApi implements ClientApi
 
 	public function orders(): OrdersApi
 	{
-		return new HttpOrdersApi($this->httpTazWorksClient);
+		return new HttpOrdersApi($this->httpTazWorksClient, $this->clientId);
 	}
 }
