@@ -19,4 +19,13 @@ enum OrderStatus : string
 	case PRE_PULL = 'pre-pull';
 	case QA_REVIEW = 'qa review';
 	case ARCHIVED = 'archived';
+
+	public function partiallyComplete(): bool
+	{
+		return in_array($this, [
+			self::PENDING,
+			self::PENDING_REVIEW,
+			self::APP_PENDING,
+		], true);
+	}
 }
