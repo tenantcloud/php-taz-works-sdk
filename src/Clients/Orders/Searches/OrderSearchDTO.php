@@ -11,7 +11,6 @@ class OrderSearchDTO
 	public function __construct(
 		#[Field(serializedName: 'orderSearchGuid')]
 		public readonly string $id,
-		public readonly OrderStatus $status,
 		public readonly SearchResultType $type,
 	)
 	{
