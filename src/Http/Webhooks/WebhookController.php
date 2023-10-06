@@ -6,8 +6,10 @@ use Crell\Serde\SerdeCommon;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Psr\Log\LoggerInterface;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderCompletedEvent;
+use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchCompletedEvent;
 
 final class WebhookController
 {
@@ -32,6 +34,7 @@ final class WebhookController
 
 		$event = match ($body->event) {
 			WebhookEventType::ORDER_COMPLETED => new OrderCompletedEvent($body->resourceId),
+			WebhookEventType::ORDER_SEARCH_COMPLETED => new OrderSearchCompletedEvent($body->resourceId, $body->idFromResourcePath('/orders/', '/searches')),
 			default => null,
 		};
 

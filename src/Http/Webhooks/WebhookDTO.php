@@ -3,6 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Http\Webhooks;
 
 use Crell\Serde\Attributes\Field;
+use Illuminate\Support\Str;
 
 /**
  * {
@@ -21,6 +22,7 @@ class WebhookDTO
 		public readonly int $version,
 		#[Field(serializedName: 'resourceGuid')]
 		public readonly string $resourceId,
+		public readonly string $resourcePath,
 		public readonly WebhookEventType $event,
 		#[Field(serializedName: 'baseClientGuid')]
 		public readonly string $baseClientId,
@@ -28,5 +30,13 @@ class WebhookDTO
 		public readonly string $instanceId,
 	)
 	{
+	}
+
+	public function idFromResourcePath(string $after, string $before): string
+	{
+		return Str::of($this->resourcePath)
+			->after($after)
+			->before($before)
+			->toString();
 	}
 }
