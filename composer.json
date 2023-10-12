@@ -29,7 +29,8 @@
 		"dms/phpunit-arraysubset-asserts": "^0.5.0",
 		"illuminate/routing": "^10.1",
 		"illuminate/config": "^10.1",
-		"illuminate/auth": "^10.1"
+		"illuminate/auth": "^10.1",
+		"symfony/cache": "^6.3"
 	},
 	"autoload": {
 		"psr-4": {
@@ -45,7 +46,8 @@
 		"test": "vendor/bin/pest",
 		"coverage": "XDEBUG_MODE=coverage vendor/bin/pest --coverage-html coverage",
 		"cs-fix": "vendor/bin/php-cs-fixer fix -v --show-progress=dots",
-		"phpstan":  "vendor/bin/phpstan analyse --memory-limit=2G"
+		"phpstan":  "vendor/bin/phpstan analyse --memory-limit=2G",
+		"generate-fake-results": "@php cli/generate-fake-results.php"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,

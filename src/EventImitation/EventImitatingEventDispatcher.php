@@ -30,6 +30,7 @@ class EventImitatingEventDispatcher implements EventDispatcherInterface
 			$this->bus->dispatch(
 				(new ImitateOrderCompletedJob($event->order->id, $event->clientId))
 					->delay(CarbonInterval::seconds(5))
+					->afterCommit()
 			);
 		}
 	}

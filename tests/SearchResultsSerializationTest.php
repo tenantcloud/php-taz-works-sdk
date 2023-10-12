@@ -14,7 +14,7 @@ dataset(
 	LazyCollection::make(SearchResultType::cases())
 		->mapWithKeys(function (SearchResultType $type) {
 			$finder = (new Finder())
-				->in(__DIR__ . '/../resources/reports/' . $type->value)
+				->in(__DIR__ . '/../resources/results/' . $type->value)
 				->name('*.json');
 
 			foreach ($finder as $file) {

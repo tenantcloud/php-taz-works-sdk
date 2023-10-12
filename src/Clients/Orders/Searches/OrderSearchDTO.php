@@ -12,6 +12,7 @@ class OrderSearchDTO
 		#[Field(serializedName: 'orderSearchGuid')]
 		public readonly string $id,
 		public readonly SearchResultType $type,
+		public readonly string $displayName,
 	)
 	{
 	}
