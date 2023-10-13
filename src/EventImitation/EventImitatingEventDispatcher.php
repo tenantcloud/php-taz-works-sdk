@@ -21,17 +21,17 @@ class EventImitatingEventDispatcher implements EventDispatcherInterface
 	public function dispatch(object $event)
 	{
 		if ($event instanceof OrderSubmittedEvent) {
+			$job = (new ImitateOrderCompletedJob($event->order->id, $event->clientId))->afterCommit();
+
 			// Imitate events when imitation is enabled and queue supports delayed jobs, otherwise it doesn't make sense.
 			// ... welcome to Laravel - a world of inconsistent behaviour. Sync queue doesn't do delays :/
 			if ($this->queueConnectionFactory->connection() instanceof SyncQueue) {
 				sleep(5);
+			} else {
+				$job = $job->delay(CarbonInterval::seconds(5));
 			}
 
-			$this->bus->dispatch(
-				(new ImitateOrderCompletedJob($event->order->id, $event->clientId))
-					->delay(CarbonInterval::seconds(5))
-					->afterCommit()
-			);
+			$this->bus->dispatch($job);
 		}
 	}
 }
