@@ -41,7 +41,8 @@ class HttpOrderSearchesApi implements OrderSearchesApi
 		$resultsDto = $this->httpTazWorksClient->serializer->deserialize($arrayResponseBody['results'], from: 'array', to: $basicDto->type->className());
 
 		return new OrderSearchWithResultsDTO(
-			$resultsDto,
+			search: $basicDto,
+			results: $resultsDto,
 		);
 	}
 }

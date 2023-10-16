@@ -48,6 +48,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 		['search' => $orderSearch, 'set' => $set] = $this->tazWorksClient->cache->get($this->orderSearchKey($orderId, $orderSearchId)) ?? throw new NotFoundException();
 
 		return new OrderSearchWithResultsDTO(
+			search: $orderSearch,
 			results: $this->searchData($orderSearch, $set)
 		);
 	}
