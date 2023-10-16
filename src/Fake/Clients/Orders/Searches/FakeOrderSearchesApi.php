@@ -11,6 +11,7 @@ use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchesApi;
+use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchStatus;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchWithResultsDTO;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
@@ -93,6 +94,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 
 			$orderSearch = new OrderSearchDTO(
 				id: Str::uuid()->toString(),
+				status: OrderSearchStatus::COMPLETE,
 				type: $search['type'],
 				displayName: $search['display_name'],
 			);
