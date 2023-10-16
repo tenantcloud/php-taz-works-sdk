@@ -3,6 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Clients\Orders;
 
 use Crell\Serde\Attributes\Field;
+use TenantCloud\TazWorksSDK\Http\Serialization\ForUnknownUseNull;
 
 class OrderDTO
 {
@@ -14,7 +15,8 @@ class OrderDTO
 		#[Field(serializedName: 'clientProductGuid')]
 		public readonly string      $clientProductId,
 		#[Field(serializedName: 'orderStatus')]
-		public readonly OrderStatus $status,
+		#[ForUnknownUseNull]
+		public readonly ?OrderStatus $status = null,
 		public readonly ?string     $externalIdentifier = null,
 	)
 	{

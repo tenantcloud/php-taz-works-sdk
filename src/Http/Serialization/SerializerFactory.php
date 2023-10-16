@@ -11,6 +11,7 @@ class SerializerFactory
 		return new SerdeCommon(
 			handlers: [
 				new SafeCarbonDateTimeExporter(),
+				new SafeEnumExporter(),
 			]
 		);
 	}

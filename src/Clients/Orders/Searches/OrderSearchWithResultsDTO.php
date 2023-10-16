@@ -13,7 +13,7 @@ class OrderSearchWithResultsDTO
 	public function __construct(
 		public readonly OrderSearchDTO $search,
 		/** @var CriminalResult */
-		public readonly CriminalResult $results,
+		public readonly ?CriminalResult $results = null,
 	)
 	{
 	}
