@@ -18,7 +18,7 @@ dataset(
 				->name('*.json');
 
 			foreach ($finder as $file) {
-				yield $type->value . ' -> ' . $file->getBasename('.json') => [$type->className(), $file->getRealPath()];
+				yield $type->value . ' -> ' . $file->getRealPath() => [$type->className(), $file->getRealPath()];
 			}
 		})
 		->all()
