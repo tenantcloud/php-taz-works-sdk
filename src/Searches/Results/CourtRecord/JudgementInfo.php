@@ -3,10 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Searches\Results\CourtRecord;
 
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\ClassSettings;
-use Crell\Serde\Attributes\DateField;
 
-#[ClassSettings(requireValues: true)]
 final class JudgementInfo
 {
 	public function __construct(

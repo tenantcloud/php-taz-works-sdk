@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Fake\Clients\Orders\Searches;
 
+use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -62,7 +63,10 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 			throw new \InvalidArgumentException("Fake report results '{$set}' not found");
 		}
 
-		return $this->tazWorksClient->serializer->deserialize($raw, from: 'json', to: $orderSearch->type->className());
+		return $this->tazWorksClient
+			->serializer
+			->adapter(JsonTypeAdapter::class, $orderSearch->type->className())
+			->deserialize($raw);
 	}
 
 	private function upsertOrderSearches(string $orderId): void
@@ -71,20 +75,20 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 			return;
 		}
 
-		$order = $this->tazWorksClient
+		['order' => $order, 'applicant' => $applicantId, 'product' => $clientProductId] = $this->tazWorksClient
 			->client($this->clientId)
 			->orders()
-			->find($orderId);
+			->findInternal($orderId);
 
 		$applicant = $this->tazWorksClient
 			->client($this->clientId)
 			->applicants()
-			->find($order->applicantId);
+			->find($applicantId);
 
 		Assert::keyExists($this->tazWorksClient->clients, $this->clientId);
-		Assert::keyExists($this->tazWorksClient->clients[$this->clientId]['products'], $order->clientProductId);
+		Assert::keyExists($this->tazWorksClient->clients[$this->clientId]['products'], $clientProductId);
 
-		$productSearches = $this->tazWorksClient->clients[$this->clientId]['products'][$order->clientProductId]['searches'];
+		$productSearches = $this->tazWorksClient->clients[$this->clientId]['products'][$clientProductId]['searches'];
 
 		$searchIds = [];
 
@@ -94,9 +98,9 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 
 			$orderSearch = new OrderSearchDTO(
 				id: Str::uuid()->toString(),
-				status: OrderSearchStatus::COMPLETE,
 				type: $search['type'],
 				displayName: $search['display_name'],
+				status: OrderSearchStatus::COMPLETE,
 			);
 			$searchIds[] = $orderSearch->id;
 

@@ -2,20 +2,16 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Orders;
 
-use Crell\Serde\Attributes\Field;
-use TenantCloud\TazWorksSDK\Http\Serialization\ForUnknownUseNull;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\UseDefaultForUnexpected;
 
 class OrderDTO
 {
 	public function __construct(
-		#[Field(serializedName: 'orderGuid')]
+		#[SerializedName('orderGuid')]
 		public readonly string      $id,
-		#[Field(serializedName: 'applicantGuid')]
-		public readonly string      $applicantId,
-		#[Field(serializedName: 'clientProductGuid')]
-		public readonly string      $clientProductId,
-		#[Field(serializedName: 'orderStatus')]
-		#[ForUnknownUseNull]
+		#[SerializedName('orderStatus')]
+		#[UseDefaultForUnexpected]
 		public readonly ?OrderStatus $status = null,
 		public readonly ?string     $externalIdentifier = null,
 	)

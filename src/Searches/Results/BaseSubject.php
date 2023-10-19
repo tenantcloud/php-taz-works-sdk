@@ -3,9 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Searches\Results;
 
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\ClassSettings;
 
-#[ClassSettings(requireValues: true)]
 final class BaseSubject
 {
 	public function __construct(

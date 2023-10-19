@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Clients\Orders\Searches;
 
+use GoodPhp\Reflection\Type\PrimitiveType;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchesApi;
@@ -23,26 +24,17 @@ class HttpOrderSearchesApi implements OrderSearchesApi
 			method: 'GET',
 			url: "orders/$orderId/searches",
 			requestData: null,
-			responseDataClass: OrderSearchDTO::class,
-			responseArray: true,
+			responseType: PrimitiveType::array(OrderSearchDTO::class),
 		);
 	}
 
 	public function results(string $orderId, string $orderSearchId): OrderSearchWithResultsDTO
 	{
-		$response = $this->httpTazWorksClient->httpClient->request('GET', "orders/$orderId/searches/$orderSearchId/results");
-		$responseBody = (string) $response->getBody();
-
-		/** @var OrderSearchDTO $basicDto */
-		$basicDto = $this->httpTazWorksClient->serializer->deserialize($responseBody, from: 'json', to: OrderSearchDTO::class);
-
-		$arrayResponseBody = json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
-
-		$resultsDto = $this->httpTazWorksClient->serializer->deserialize($arrayResponseBody['results'], from: 'array', to: $basicDto->type->className());
-
-		return new OrderSearchWithResultsDTO(
-			search: $basicDto,
-			results: $resultsDto,
+		return $this->httpTazWorksClient->performJsonRequest(
+			method: 'GET',
+			url: "orders/$orderId/searches/$orderSearchId/results",
+			requestData: null,
+			responseType: OrderSearchWithResultsDTO::class,
 		);
 	}
 }

@@ -2,14 +2,12 @@
 
 namespace TenantCloud\TazWorksSDK\Searches\Results;
 
-use Crell\Serde\Attributes\ClassSettings;
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\Flattening\Flatten;
 
-#[ClassSettings(requireValues: true)]
 final class DefendantPlaintiff
 {
 	public function __construct(
-		#[Field(flatten: true)]
+		#[Flatten]
 		public readonly ?BaseSubject $baseSubject = null,
 		public readonly ?string $type = null,
 		public readonly ?string $number = null,

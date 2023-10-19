@@ -2,7 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK;
 
-use Crell\Serde\SerdeCommon;
+use GoodPhp\Serialization\Serializer;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Container\Container;
@@ -81,7 +81,7 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 
 		$this->app
 			->when(WebhookController::class)
-			->needs(SerdeCommon::class)
+			->needs(Serializer::class)
 			->give('taz_works.serializer');
 	}
 }

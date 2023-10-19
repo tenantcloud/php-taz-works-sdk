@@ -33,7 +33,7 @@ class HttpOrdersApi implements OrdersApi
 			method: 'GET',
 			url: "orders/{$id}",
 			requestData: null,
-			responseDataClass: OrderDTO::class,
+			responseType: OrderDTO::class,
 		);
 	}
 
@@ -43,7 +43,7 @@ class HttpOrdersApi implements OrdersApi
 			method: 'POST',
 			url: 'orders',
 			requestData: $data,
-			responseDataClass: OrderDTO::class,
+			responseType: OrderDTO::class,
 		);
 
 		$this->httpTazWorksClient->events?->dispatch(new OrderSubmittedEvent($order, $this->clientId));

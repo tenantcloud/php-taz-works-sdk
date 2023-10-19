@@ -4,14 +4,14 @@ namespace TenantCloud\TazWorksSDK\Clients\Applicants;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\DateField;
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\BuiltIn\Date;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
 use TenantCloud\TazWorksSDK\TazAssert;
 use Webmozart\Assert\Assert;
 
 class UpsertApplicantDTO
 {
-	#[Field(serializedName: 'applicantGuid')]
+	#[SerializedName('applicantGuid')]
 	public ?string $id = null;
 
 	public readonly bool $noMiddleName;
@@ -22,8 +22,8 @@ class UpsertApplicantDTO
 		public readonly string              $lastName,
 		public readonly string              $email,
 		public readonly ?string             $ssn = null,
-		#[DateField(format: 'Y-m-d')]
-		public readonly ?\DateTimeImmutable $dateOfBirth = null,
+		#[Date(format: 'Y-m-d')]
+		public readonly ?CarbonImmutable $dateOfBirth = null,
 	)
 	{
 		if ($ssn) {

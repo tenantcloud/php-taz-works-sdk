@@ -3,9 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Searches\Results\CriminalResult\CriminalRecord;
 
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\ClassSettings;
 
-#[ClassSettings(requireValues: true)]
 final class Incarceration
 {
 	public function __construct(

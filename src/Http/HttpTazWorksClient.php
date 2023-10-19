@@ -2,7 +2,9 @@
 
 namespace TenantCloud\TazWorksSDK\Http;
 
-use Crell\Serde\SerdeCommon;
+use GoodPhp\Reflection\Type\Type;
+use GoodPhp\Serialization\Serializer;
+use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -20,10 +22,6 @@ use TenantCloud\TazWorksSDK\Clients\ClientApi;
 use TenantCloud\TazWorksSDK\Http\Clients\HttpClientApi;
 use TenantCloud\TazWorksSDK\Http\Serialization\SerializerFactory;
 use TenantCloud\TazWorksSDK\TazWorksClient;
-use TenantCloud\TransUnionSDK\Reports\ReportNotReadyException;
-use TenantCloud\TransUnionSDK\Reports\UserNotVerifiedException;
-use TenantCloud\TransUnionSDK\Requests\Renters\CannotCancelRequestException;
-use TenantCloud\TransUnionSDK\Shared\NotFoundException;
 use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
 /**
@@ -41,7 +39,7 @@ class HttpTazWorksClient implements TazWorksClient
 	public function __construct(
 		private readonly string $baseUrl,
 		string $apiToken,
-		public readonly SerdeCommon $serializer,
+		public readonly Serializer $serializer,
 		public readonly ?EventDispatcherInterface $events = null,
 		LoggerInterface $logger = null,
 		private readonly int $timeout = 30,
@@ -68,17 +66,13 @@ class HttpTazWorksClient implements TazWorksClient
 
 	/**
 	 * @internal
-	 *
-	 * @template ResponseDataType of object
-	 *
-	 * @param class-string<ResponseDataType> $responseDataClass
-	 *
-	 * @return ($responseArray is true ? array<int, ResponseDataType> : ResponseDataType)
 	 */
-	public function performJsonRequest(string $method, string $url, ?object $requestData, string $responseDataClass, bool $responseArray = false): array|object
+	public function performJsonRequest(string $method, string $url, ?object $requestData, string|Type $responseType): array|object
 	{
 		if ($requestData) {
-			$serialized = $this->serializer->serialize($requestData, format: 'json');
+			$serialized = $this->serializer
+				->adapter(JsonTypeAdapter::class, get_class($requestData))
+				->serialize($requestData);
 		}
 
 		$response = $this->httpClient->request($method, $url, [
@@ -87,16 +81,10 @@ class HttpTazWorksClient implements TazWorksClient
 				'Content-Type' => 'application/json',
 			]
 		]);
-		$responseBody = (string) $response->getBody();
 
-		if ($responseArray) {
-			return array_map(
-				fn (mixed $data) => $this->serializer->deserialize($data, from: 'array', to: $responseDataClass),
-				json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR)
-			);
-		}
-
-		return $this->serializer->deserialize($responseBody, from: 'json', to: $responseDataClass);
+		return $this->serializer
+			->adapter(JsonTypeAdapter::class, $responseType)
+			->deserialize((string) $response->getBody());
 	}
 
 	private function buildHandlerStack(string $apiToken, ?LoggerInterface $logger): HandlerStack

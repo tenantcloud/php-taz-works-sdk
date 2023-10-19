@@ -31,24 +31,34 @@ class FakeOrdersApi implements OrdersApi
 
 	public function find(string $id): OrderDTO
 	{
-		return $this->tazWorksClient->cache->get($this->orderKey($id)) ?? throw new NotFoundException();
+		return $this->findInternal($id)['order'];
 	}
 
 	public function submit(SubmitOrderDTO $data): OrderDTO
 	{
 		$order = new OrderDTO(
 			id: Str::uuid()->toString(),
-			applicantId: $data->applicantGuid,
-			clientProductId: $data->clientProductGuid,
 			status: OrderStatus::COMPLETE,
 			externalIdentifier: $data->externalIdentifier,
 		);
 
-		$this->tazWorksClient->cache->set($this->orderKey($order), $order);
+		$this->tazWorksClient->cache->set($this->orderKey($order), [
+			'order' => $order,
+			'applicant' => $data->applicantGuid,
+			'product' => $data->clientProductGuid
+		]);
 
 		$this->tazWorksClient->events?->dispatch(new OrderSubmittedEvent($order, $this->clientId));
 
 		return $order;
+	}
+
+	/**
+	 * @return array{order: OrderDTO, applicant: string, product: string}
+	 */
+	public function findInternal(string $id): array
+	{
+		return $this->tazWorksClient->cache->get($this->orderKey($id)) ?? throw new NotFoundException();
 	}
 
 	private function orderKey(string|OrderDTO $id): string

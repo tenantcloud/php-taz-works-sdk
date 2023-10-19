@@ -2,7 +2,8 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Webhooks;
 
-use Crell\Serde\SerdeCommon;
+use GoodPhp\Serialization\Serializer;
+use GoodPhp\Serialization\TypeAdapter\Primitive\PrimitiveTypeAdapter;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,7 +15,7 @@ use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchCompletedEvent;
 final class WebhookController
 {
 	public function __construct(
-		private readonly SerdeCommon $serializer,
+		private readonly Serializer $serializer,
 		private readonly Dispatcher $events,
 	)
 	{
@@ -30,7 +31,9 @@ final class WebhookController
 			return new Response(status: Response::HTTP_NO_CONTENT);
 		}
 
-		$body = $this->serializer->deserialize($request->all(), from: 'array', to: WebhookDTO::class);
+		$body = $this->serializer
+			->adapter(PrimitiveTypeAdapter::class, WebhookDTO::class)
+			->deserialize($request->all());
 
 		$event = match ($body->event) {
 			WebhookEventType::ORDER_COMPLETED => new OrderCompletedEvent($body->resourceId),

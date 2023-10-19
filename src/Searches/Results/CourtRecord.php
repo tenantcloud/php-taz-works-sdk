@@ -3,12 +3,9 @@
 namespace TenantCloud\TazWorksSDK\Searches\Results;
 
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\ClassSettings;
-use Crell\Serde\Attributes\SequenceField;
 use TenantCloud\TazWorksSDK\Searches\Results\CourtRecord\JudgementInfo;
 use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult\CriminalRecord;
 
-#[ClassSettings(requireValues: true)]
 final class CourtRecord
 {
 	public function __construct(
@@ -31,10 +28,8 @@ final class CourtRecord
 		public readonly ?DispositionInfo $dispositionInfo = null,
 		public readonly ?JudgementInfo $judgementInfo = null,
 		/** @var DefendantPlaintiff[] */
-		#[SequenceField(arrayType: DefendantPlaintiff::class)]
 		public readonly array $defendants = [],
 		/** @var DefendantPlaintiff[] */
-		#[SequenceField(arrayType: DefendantPlaintiff::class)]
 		public readonly array $plaintiffs = [],
 	) {}
 }

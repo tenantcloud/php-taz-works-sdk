@@ -2,7 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Fake;
 
-use Crell\Serde\SerdeCommon;
+use GoodPhp\Serialization\Serializer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\SimpleCache\CacheInterface;
 use TenantCloud\TazWorksSDK\Clients\ClientApi;
@@ -19,7 +19,7 @@ class FakeTazWorksClient implements TazWorksClient
 	 */
 	public function __construct(
 		public readonly CacheInterface $cache,
-		public readonly SerdeCommon $serializer,
+		public readonly Serializer $serializer,
 		public readonly array $clients,
 		public readonly ?EventDispatcherInterface $events = null,
 	)

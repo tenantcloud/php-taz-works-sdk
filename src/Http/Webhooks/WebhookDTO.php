@@ -2,7 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Webhooks;
 
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
 use Illuminate\Support\Str;
 
 /**
@@ -20,13 +20,13 @@ class WebhookDTO
 {
 	public function __construct(
 		public readonly int $version,
-		#[Field(serializedName: 'resourceGuid')]
+		#[SerializedName('resourceGuid')]
 		public readonly string $resourceId,
 		public readonly string $resourcePath,
 		public readonly WebhookEventType $event,
-		#[Field(serializedName: 'baseClientGuid')]
+		#[SerializedName('baseClientGuid')]
 		public readonly string $baseClientId,
-		#[Field(serializedName: 'instanceId')]
+		#[SerializedName('instanceId')]
 		public readonly string $instanceId,
 	)
 	{

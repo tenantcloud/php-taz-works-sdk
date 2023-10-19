@@ -3,12 +3,8 @@
 namespace TenantCloud\TazWorksSDK\Searches\Results\CriminalResult;
 
 use Carbon\CarbonImmutable;
-use Crell\Serde\Attributes\ClassSettings;
-use Crell\Serde\Attributes\DictionaryField;
-use Crell\Serde\KeyType;
 use TenantCloud\TazWorksSDK\Searches\Results\DispositionInfo;
 
-#[ClassSettings(requireValues: true)]
 final class Offense
 {
 	public function __construct(
@@ -35,7 +31,6 @@ final class Offense
 		public readonly ?CarbonImmutable $arrestDate = null,
 		public readonly ?CarbonImmutable $fileDate = null,
 		/** @var array<string, string> */
-		#[DictionaryField(arrayType: 'string', keyType: KeyType::String)]
 		public readonly array $other = [],
 	)
 	{

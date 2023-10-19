@@ -68,7 +68,7 @@ test('client - create, update applicant; submit order; receive list of orders an
 
 	$order = $clientApi->orders()->find($order->id);
 
-	expect($order->status)->toEqual(OrderStatus::COMPLETE);
+	expect($order->status)->toBe(OrderStatus::COMPLETE);
 
 	$results = array_map(
 		fn (OrderSearchDTO $search) => $clientApi->orders()->searches()->results($order->id, $search->id)->results,

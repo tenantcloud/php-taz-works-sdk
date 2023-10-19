@@ -2,15 +2,12 @@
 
 namespace TenantCloud\TazWorksSDK\Searches\Results;
 
-use Crell\Serde\Attributes\ClassSettings;
-use Crell\Serde\Attributes\Field;
-use Crell\Serde\Attributes\SequenceField;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\Flattening\Flatten;
 
-#[ClassSettings(requireValues: true)]
 final class Subject
 {
 	public function __construct(
-		#[Field(flatten: true)]
+		#[Flatten]
 		public readonly ?BaseSubject $baseSubject = null,
 		public readonly ?string $gender = null,
 		public readonly ?string $race = null,
@@ -21,11 +18,9 @@ final class Subject
 		public readonly ?string $imageUrl = null,
 		public readonly ?string $stateUrl = null,
 		/** @var Address[] */
-		#[SequenceField(arrayType: Address::class)]
-		public readonly ?array $addresses = null,
+		public readonly array $addresses = [],
 		/** @var Alias[] */
-		#[SequenceField(arrayType: Alias::class)]
-		public readonly ?array $aliases = null,
+		public readonly array $aliases = [],
 		public readonly ?ContactInfo $contactInfo = null,
 	)
 	{

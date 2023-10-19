@@ -2,20 +2,20 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Orders\Searches;
 
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\UseDefaultForUnexpected;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderStatus;
-use TenantCloud\TazWorksSDK\Http\Serialization\ForUnknownUseNull;
 use TenantCloud\TazWorksSDK\Searches\SearchResultType;
 
 class OrderSearchDTO
 {
 	public function __construct(
-		#[Field(serializedName: 'orderSearchGuid')]
+		#[SerializedName('orderSearchGuid')]
 		public readonly string $id,
-		#[ForUnknownUseNull]
-		public readonly ?OrderSearchStatus $status = null,
 		public readonly SearchResultType $type,
 		public readonly string $displayName,
+		#[UseDefaultForUnexpected]
+		public readonly ?OrderSearchStatus $status = null,
 	)
 	{
 	}

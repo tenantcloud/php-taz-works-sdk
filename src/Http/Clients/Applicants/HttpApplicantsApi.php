@@ -26,7 +26,7 @@ class HttpApplicantsApi implements ApplicantsApi
 			method: 'POST',
 			url: 'applicants',
 			requestData: $data,
-			responseDataClass: ApplicantDTO::class,
+			responseType: ApplicantDTO::class,
 		);
 	}
 
@@ -38,7 +38,7 @@ class HttpApplicantsApi implements ApplicantsApi
 			method: 'PUT',
 			url: "applicants/{$id}",
 			requestData: $data,
-			responseDataClass: ApplicantDTO::class,
+			responseType: ApplicantDTO::class,
 		);
 	}
 }

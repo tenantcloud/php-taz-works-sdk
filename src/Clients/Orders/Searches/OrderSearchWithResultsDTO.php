@@ -2,17 +2,14 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Orders\Searches;
 
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\Flattening\Flatten;
 use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult;
 
-/**
- * @template ResultsType of CriminalResult
- */
 class OrderSearchWithResultsDTO
 {
 	public function __construct(
+		#[Flatten]
 		public readonly OrderSearchDTO $search,
-		/** @var CriminalResult */
 		public readonly ?CriminalResult $results = null,
 	)
 	{

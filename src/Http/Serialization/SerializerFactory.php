@@ -2,17 +2,16 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Serialization;
 
-use Crell\Serde\SerdeCommon;
+use GoodPhp\Serialization\Serializer;
+use GoodPhp\Serialization\SerializerBuilder;
+use GoodPhp\Serialization\TypeAdapter\Primitive\BuiltIn\DateTimeMapper;
 
 class SerializerFactory
 {
-	public static function make(): SerdeCommon
+	public static function make(): Serializer
 	{
-		return new SerdeCommon(
-			handlers: [
-				new SafeCarbonDateTimeExporter(),
-				new SafeEnumExporter(),
-			]
-		);
+		return (new SerializerBuilder())
+			->addMapper(new SafeDateMapper(new DateTimeMapper()))
+			->build();
 	}
 }

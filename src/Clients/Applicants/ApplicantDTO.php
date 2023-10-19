@@ -2,12 +2,12 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Applicants;
 
-use Crell\Serde\Attributes\Field;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
 
 class ApplicantDTO
 {
 	public function __construct(
-		#[Field(serializedName: 'applicantGuid')]
+		#[SerializedName('applicantGuid')]
 		public readonly string $id,
 		public readonly string $firstName,
 		public readonly string $lastName,
