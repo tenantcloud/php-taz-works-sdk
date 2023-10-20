@@ -57,6 +57,7 @@ class FakeApplicantsApi implements ApplicantsApi
 		return new ApplicantDTO(
 			id: $id,
 			firstName: $data->firstName,
+			middleName: $data->middleName,
 			lastName: $data->lastName,
 			email: $data->email,
 			ssn: $data->ssn,
