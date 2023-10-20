@@ -31,7 +31,7 @@ class FakeOrdersApi implements OrdersApi
 
 	public function find(string $id): OrderDTO
 	{
-		return $this->findInternal($id)['order'];
+		return $this->tazWorksClient->cache->get($this->orderKey($id)) ?? throw new NotFoundException();
 	}
 
 	public function submit(SubmitOrderDTO $data): OrderDTO
@@ -40,25 +40,22 @@ class FakeOrdersApi implements OrdersApi
 			id: Str::uuid()->toString(),
 			status: OrderStatus::COMPLETE,
 			externalIdentifier: $data->externalIdentifier,
+			applicantId: $data->applicantGuid,
+			clientProductId: $data->clientProductGuid,
 		);
 
-		$this->tazWorksClient->cache->set($this->orderKey($order), [
-			'order' => $order,
-			'applicant' => $data->applicantGuid,
-			'product' => $data->clientProductGuid
-		]);
+		$this->tazWorksClient->cache->set($this->orderKey($order), $order);
+
+		// For whatever reason, HTTP api doesn't return applicantGuid and clientProductGuid fields on submit. So we won't too.
+		$order = new OrderDTO(
+			id: $order->id,
+			status: OrderStatus::NEW,
+			externalIdentifier: $data->externalIdentifier,
+		);
 
 		$this->tazWorksClient->events?->dispatch(new OrderSubmittedEvent($order, $this->clientId));
 
 		return $order;
-	}
-
-	/**
-	 * @return array{order: OrderDTO, applicant: string, product: string}
-	 */
-	public function findInternal(string $id): array
-	{
-		return $this->tazWorksClient->cache->get($this->orderKey($id)) ?? throw new NotFoundException();
 	}
 
 	private function orderKey(string|OrderDTO $id): string

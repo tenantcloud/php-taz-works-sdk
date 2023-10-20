@@ -1,8 +1,12 @@
 <?php
 
 use Carbon\CarbonImmutable;
+use GoodPhp\Serialization\MissingValue;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Psr16Cache;
+use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressDTO;
+use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressType;
+use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\UpsertAddressDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderStatus;
@@ -59,16 +63,52 @@ test('client - create, update applicant; submit order; receive list of orders an
 		UpsertApplicantDTO::testBadResults()
 	);
 
+	$foundApplicant = $clientApi->applicants()->find($applicant->id);
+	expect($foundApplicant)->toEqual($applicant);
+
+	$address = $clientApi->applicants()->addresses()->create(
+		$applicant->id,
+		new UpsertAddressDTO(
+			type: AddressType::DOMESTIC,
+			streetOne: '12345 Lamplight Village Ave',
+			streetTwo: null,
+			city: 'Austin',
+			stateOrProvince: 'TX',
+			postalCode: '76878',
+			country: 'US',
+		)
+	);
+
+	$addresses = $clientApi->applicants()->addresses()->list($applicant->id);
+	expect($addresses)->toHaveCount(1);
+	expect($addresses[0])->toEqual(
+		new AddressDTO(
+			id: $address->id,
+			type: $address->type,
+			streetOne: $address->streetOne,
+			streetTwo: $address->streetTwo,
+			city: $address->city,
+			stateOrProvince: $address->stateOrProvince,
+			postalCode: $address->postalCode,
+			country: $address->country,
+		)
+	);
+
 	$order = $clientApi->orders()->submit(new SubmitOrderDTO(
 		applicantGuid: $applicant->id,
 		clientProductGuid: $clientProductGuid,
 	));
+
+	expect($order->applicantId)->toBe(MissingValue::INSTANCE);
+	expect($order->clientProductId)->toBe(MissingValue::INSTANCE);
 
 	sleep(5);
 
 	$order = $clientApi->orders()->find($order->id);
 
 	expect($order->status)->toBe(OrderStatus::COMPLETE);
+	expect($order->applicantId)->toBe($applicant->id);
+	expect($order->clientProductId)->toBe($clientProductGuid);
 
 	$results = array_map(
 		fn (OrderSearchDTO $search) => $clientApi->orders()->searches()->results($order->id, $search->id)->results,

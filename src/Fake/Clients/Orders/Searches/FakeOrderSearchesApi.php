@@ -75,20 +75,20 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 			return;
 		}
 
-		['order' => $order, 'applicant' => $applicantId, 'product' => $clientProductId] = $this->tazWorksClient
+		$order = $this->tazWorksClient
 			->client($this->clientId)
 			->orders()
-			->findInternal($orderId);
+			->find($orderId);
 
 		$applicant = $this->tazWorksClient
 			->client($this->clientId)
 			->applicants()
-			->find($applicantId);
+			->find($order->applicantId);
 
 		Assert::keyExists($this->tazWorksClient->clients, $this->clientId);
-		Assert::keyExists($this->tazWorksClient->clients[$this->clientId]['products'], $clientProductId);
+		Assert::keyExists($this->tazWorksClient->clients[$this->clientId]['products'], $order->clientProductId);
 
-		$productSearches = $this->tazWorksClient->clients[$this->clientId]['products'][$clientProductId]['searches'];
+		$productSearches = $this->tazWorksClient->clients[$this->clientId]['products'][$order->clientProductId]['searches'];
 
 		$searchIds = [];
 

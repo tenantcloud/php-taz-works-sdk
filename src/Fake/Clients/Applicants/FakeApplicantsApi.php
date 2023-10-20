@@ -4,9 +4,11 @@ namespace TenantCloud\TazWorksSDK\Fake\Clients\Applicants;
 
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
+use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressesApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantsApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
+use TenantCloud\TazWorksSDK\Fake\Clients\Applicants\Addresses\FakeApplicantAddressesApi;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
 use Webmozart\Assert\Assert;
@@ -17,6 +19,11 @@ class FakeApplicantsApi implements ApplicantsApi
 		private readonly FakeTazWorksClient $tazWorksClient,
 		private readonly string $clientId,
 	) {}
+
+	public function addresses(): AddressesApi
+	{
+		return new FakeApplicantAddressesApi($this->tazWorksClient, $this->clientId);
+	}
 
 	public function find(string $id): ApplicantDTO
 	{

@@ -1,1 +1,200 @@
-{"records":[{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"502008CF012155YXYXMB","fileDate":"2019-07-10","offenses":[{"type":"Felony","countOffense":"1. Possession Of Schedule 4 Substance","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}},{"type":"Felony","countOffense":"2. Possession Of Schedule 2 Substance","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}},{"type":"Felony","countOffense":"3. Attempt To Obtain Controlled Substance By Fraud","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}}]},{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"2008CF012149YXY","fileDate":"2019-06-20","offenses":[{"type":"Felony","countOffense":"1. Attempt To Obtain Controlled Substance By Fraud","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 06\/21\/2021"},"dispositionInfo":{"date":"2019-06-21","other":{"Court":"Pre Trial Intervention"}}}]},{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"502007CT024900YXYXXSB","fileDate":"2019-06-01","offenses":[{"type":"Traffic","countOffense":"1. Unregistered Motor Vehicle","dispositionInfo":{"date":"2019-07-01","other":{"Court":"Nolle Prosse"}},"other":{"Charge Classification":"Criminal"}}]},{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"502008CF012155YXYXMB","fileDate":"2019-07-10","offenses":[{"type":"Felony","countOffense":"1. Possession Of Schedule 4 Substance","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}},{"type":"Felony","countOffense":"2. Possession Of Schedule 2 Substance","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}},{"type":"Felony","countOffense":"3. Attempt To Obtain Controlled Substance By Fraud","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"},"dispositionInfo":{"date":"2019-08-01","other":{"Court":"Pre Trial Intervention"}}}]},{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"2008CF012149YXY","fileDate":"2019-06-20","offenses":[{"type":"Felony","countOffense":"1. Attempt To Obtain Controlled Substance By Fraud","sentenceInfo":{"sentence":"24 Months Or Pretrial Intervention Next Court Date 06\/21\/2021"},"dispositionInfo":{"date":"2019-06-21","other":{"Court":"Pre Trial Intervention"}}}]},{"subject":{"fullName":"MESS, HANK","dateOfBirth":"XXXX-04-01","contactInfo":{}},"caseNumber":"502007CT024900YXYXXSB","fileDate":"2019-06-01","offenses":[{"type":"Traffic","countOffense":"1. Unregistered Motor Vehicle","dispositionInfo":{"date":"2019-07-01","other":{"Court":"Nolle Prosse"}},"other":{"Charge Classification":"Criminal"}}]}]}
+{
+	"records": [
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "502008CF012155YXYXMB",
+			"fileDate": "2019-07-10",
+			"offenses": [
+				{
+					"type": "Felony",
+					"countOffense": "1. Possession Of Schedule 4 Substance",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				},
+				{
+					"type": "Felony",
+					"countOffense": "2. Possession Of Schedule 2 Substance",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				},
+				{
+					"type": "Felony",
+					"countOffense": "3. Attempt To Obtain Controlled Substance By Fraud",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				}
+			]
+		},
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "2008CF012149YXY",
+			"fileDate": "2019-06-20",
+			"offenses": [
+				{
+					"type": "Felony",
+					"countOffense": "1. Attempt To Obtain Controlled Substance By Fraud",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 06\/21\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-06-21",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				}
+			]
+		},
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "502007CT024900YXYXXSB",
+			"fileDate": "2019-06-01",
+			"offenses": [
+				{
+					"type": "Traffic",
+					"countOffense": "1. Unregistered Motor Vehicle",
+					"dispositionInfo": {
+						"date": "2019-07-01",
+						"other": {
+							"Court": "Nolle Prosse"
+						}
+					},
+					"other": {
+						"Charge Classification": "Criminal"
+					}
+				}
+			]
+		},
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "502008CF012155YXYXMB",
+			"fileDate": "2019-07-10",
+			"offenses": [
+				{
+					"type": "Felony",
+					"countOffense": "1. Possession Of Schedule 4 Substance",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				},
+				{
+					"type": "Felony",
+					"countOffense": "2. Possession Of Schedule 2 Substance",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				},
+				{
+					"type": "Felony",
+					"countOffense": "3. Attempt To Obtain Controlled Substance By Fraud",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 08\/01\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-08-01",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				}
+			]
+		},
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "2008CF012149YXY",
+			"fileDate": "2019-06-20",
+			"offenses": [
+				{
+					"type": "Felony",
+					"countOffense": "1. Attempt To Obtain Controlled Substance By Fraud",
+					"sentenceInfo": {
+						"sentence": "24 Months Or Pretrial Intervention Next Court Date 06\/21\/2021"
+					},
+					"dispositionInfo": {
+						"date": "2019-06-21",
+						"other": {
+							"Court": "Pre Trial Intervention"
+						}
+					}
+				}
+			]
+		},
+		{
+			"subject": {
+				"fullName": "MESS, HANK",
+				"dateOfBirth": "XXXX-04-01",
+				"contactInfo": {}
+			},
+			"caseNumber": "502007CT024900YXYXXSB",
+			"fileDate": "2019-06-01",
+			"offenses": [
+				{
+					"type": "Traffic",
+					"countOffense": "1. Unregistered Motor Vehicle",
+					"dispositionInfo": {
+						"date": "2019-07-01",
+						"other": {
+							"Court": "Nolle Prosse"
+						}
+					},
+					"other": {
+						"Charge Classification": "Criminal"
+					}
+				}
+			]
+		}
+	]
+}
