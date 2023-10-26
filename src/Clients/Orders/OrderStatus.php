@@ -2,7 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Orders;
 
-enum OrderStatus : string
+enum OrderStatus: string
 {
 	case APP_PENDING = 'app-pending';
 	case APP_READY = 'app-ready';

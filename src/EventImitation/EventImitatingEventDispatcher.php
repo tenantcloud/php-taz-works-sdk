@@ -4,9 +4,9 @@ namespace TenantCloud\TazWorksSDK\EventImitation;
 
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use Illuminate\Queue\SyncQueue;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Illuminate\Contracts\Queue\Factory as QueueConnectionFactory;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderSubmittedEvent;
 
 class EventImitatingEventDispatcher implements EventDispatcherInterface
@@ -14,9 +14,7 @@ class EventImitatingEventDispatcher implements EventDispatcherInterface
 	public function __construct(
 		private readonly Dispatcher $bus,
 		private readonly QueueConnectionFactory $queueConnectionFactory,
-	)
-	{
-	}
+	) {}
 
 	public function dispatch(object $event)
 	{

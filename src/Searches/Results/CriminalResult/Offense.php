@@ -32,7 +32,5 @@ final class Offense
 		public readonly ?CarbonImmutable $fileDate = null,
 		/** @var array<string, string> */
 		public readonly array $other = [],
-	)
-	{
-	}
+	) {}
 }

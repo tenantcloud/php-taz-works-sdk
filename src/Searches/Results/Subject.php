@@ -22,7 +22,5 @@ final class Subject
 		/** @var Alias[] */
 		public readonly array $aliases = [],
 		public readonly ?ContactInfo $contactInfo = null,
-	)
-	{
-	}
+	) {}
 }

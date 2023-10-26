@@ -3,20 +3,15 @@
 namespace TenantCloud\TazWorksSDK\Fake\Clients\Orders\Searches;
 
 use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
+use InvalidArgumentException;
 use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchesApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchStatus;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchWithResultsDTO;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
-use TenantCloud\TazWorksSDK\Searches\SearchResultType;
 use Webmozart\Assert\Assert;
 
 class FakeOrderSearchesApi implements OrderSearchesApi
@@ -60,7 +55,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 		$raw = file_get_contents(__DIR__ . "/../../../../../resources/results/{$orderSearch->type->value}/{$set}.json");
 
 		if ($raw === false) {
-			throw new \InvalidArgumentException("Fake report results '{$set}' not found");
+			throw new InvalidArgumentException("Fake report results '{$set}' not found");
 		}
 
 		return $this->tazWorksClient
@@ -106,7 +101,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 
 			$this->tazWorksClient->cache->set($this->orderSearchKey($orderId, $orderSearch), [
 				'search' => $orderSearch,
-				'set' => "{$set}/{$subSet}",
+				'set'    => "{$set}/{$subSet}",
 			]);
 		}
 

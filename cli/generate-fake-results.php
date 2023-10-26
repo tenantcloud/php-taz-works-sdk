@@ -17,50 +17,50 @@ $clientId = '7f8feafb-745b-4ea2-b50a-98b76da39c38';
 
 $variants = [
 	[
-		'product' => 'c7e67758-6758-4820-959a-e2131d47a5bf',
-		'type' => SearchResultType::NATIONAL_CRIMINAL_DATABASE_ALIAS,
+		'product'   => 'c7e67758-6758-4820-959a-e2131d47a5bf',
+		'type'      => SearchResultType::NATIONAL_CRIMINAL_DATABASE_ALIAS,
 		'applicant' => UpsertApplicantDTO::testGoodResults(),
-		'set' => 'regular/good'
+		'set'       => 'regular/good',
 	],
 	[
-		'product' => 'c7e67758-6758-4820-959a-e2131d47a5bf',
-		'type' => SearchResultType::NATIONAL_CRIMINAL_DATABASE_ALIAS,
+		'product'   => 'c7e67758-6758-4820-959a-e2131d47a5bf',
+		'type'      => SearchResultType::NATIONAL_CRIMINAL_DATABASE_ALIAS,
 		'applicant' => UpsertApplicantDTO::testBadResults(),
-		'set' => 'regular/bad'
+		'set'       => 'regular/bad',
 	],
 
 	[
-		'product' => '3fff0153-13df-40d5-a7c2-c02ed8887abf',
-		'type' => SearchResultType::COUNTY_CRIMINAL_RECORD,
+		'product'   => '3fff0153-13df-40d5-a7c2-c02ed8887abf',
+		'type'      => SearchResultType::COUNTY_CRIMINAL_RECORD,
 		'applicant' => UpsertApplicantDTO::testGoodResults(),
-		'set' => 'current/good'
+		'set'       => 'current/good',
 	],
 	[
-		'product' => '3fff0153-13df-40d5-a7c2-c02ed8887abf',
-		'type' => SearchResultType::COUNTY_CRIMINAL_RECORD,
+		'product'   => '3fff0153-13df-40d5-a7c2-c02ed8887abf',
+		'type'      => SearchResultType::COUNTY_CRIMINAL_RECORD,
 		'applicant' => UpsertApplicantDTO::testBadResults(),
-		'set' => 'current/bad'
+		'set'       => 'current/bad',
 	],
 
 	[
-		'product' => '02f4d895-871e-47f7-9fec-99ed59532c60',
-		'type' => SearchResultType::COUNTY_CRIMINAL_RECORD,
+		'product'   => '02f4d895-871e-47f7-9fec-99ed59532c60',
+		'type'      => SearchResultType::COUNTY_CRIMINAL_RECORD,
 		'applicant' => UpsertApplicantDTO::testGoodResults(),
-		'set' => 'all/good'
+		'set'       => 'all/good',
 	],
 	[
-		'product' => '02f4d895-871e-47f7-9fec-99ed59532c60',
-		'type' => SearchResultType::COUNTY_CRIMINAL_RECORD,
+		'product'   => '02f4d895-871e-47f7-9fec-99ed59532c60',
+		'type'      => SearchResultType::COUNTY_CRIMINAL_RECORD,
 		'applicant' => UpsertApplicantDTO::testBadResults(),
-		'set' => 'all/bad'
+		'set'       => 'all/bad',
 	],
 ];
 
-$client = (new HttpTazWorksClient(
+$client = new HttpTazWorksClient(
 	baseUrl: 'https://api-sandbox.instascreen.net',
 	apiToken: $token,
 	serializer: SerializerFactory::make()
-));
+);
 $clientApi = $client->client($clientId);
 
 foreach ($variants as $i => $variant) {
@@ -91,7 +91,7 @@ foreach ($variants as $i => $variant) {
 
 	file_put_contents(__DIR__ . "/../resources/results/{$type->value}/{$set}.json", $rawResult);
 
-	echo "Downloaded " . ($i + 1) . '/' . count($variants) . "\n";
+	echo 'Downloaded ' . ($i + 1) . '/' . count($variants) . "\n";
 }
 
 echo 'Done';

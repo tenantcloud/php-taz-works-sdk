@@ -28,9 +28,7 @@ class WebhookDTO
 		public readonly string $baseClientId,
 		#[SerializedName('instanceId')]
 		public readonly string $instanceId,
-	)
-	{
-	}
+	) {}
 
 	public function idFromResourcePath(string $after, string $before): string
 	{

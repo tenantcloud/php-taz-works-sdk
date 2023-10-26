@@ -22,9 +22,7 @@ class FakeTazWorksClient implements TazWorksClient
 		public readonly Serializer $serializer,
 		public readonly array $clients,
 		public readonly ?EventDispatcherInterface $events = null,
-	)
-	{
-	}
+	) {}
 
 	public function client(string $id): ClientApi
 	{

@@ -12,7 +12,5 @@ final class DispositionInfo
 		public readonly ?string $description = null,
 		/** @var array<string, string> */
 		public readonly array $other = [],
-	)
-	{
-	}
+	) {}
 }

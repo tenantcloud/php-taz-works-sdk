@@ -2,7 +2,6 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Serialization;
 
-use Carbon\CarbonImmutable;
 use DateTimeInterface;
 use GoodPhp\Reflection\Reflection\Attributes\Attributes;
 use GoodPhp\Reflection\Type\Type;
@@ -16,9 +15,7 @@ class SafeDateMapper
 {
 	public function __construct(
 		private readonly DateTimeMapper $delegate
-	)
-	{
-	}
+	) {}
 
 	#[MapTo(PrimitiveTypeAdapter::class, new BaseTypeAcceptedByAcceptanceStrategy(DateTimeInterface::class))]
 	public function to(DateTimeInterface $value, Attributes $attributes): string

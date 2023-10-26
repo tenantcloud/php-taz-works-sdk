@@ -18,7 +18,5 @@ final class DefendantPlaintiff
 		public readonly ?string $attorneyName = null,
 		public readonly ?string $attorneyPhone = null,
 		public readonly ?string $spouseName = null,
-	)
-	{
-	}
+	) {}
 }

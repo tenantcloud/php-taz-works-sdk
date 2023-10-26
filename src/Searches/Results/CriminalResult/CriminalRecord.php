@@ -5,7 +5,6 @@ namespace TenantCloud\TazWorksSDK\Searches\Results\CriminalResult;
 use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\Flattening\Flatten;
 use TenantCloud\TazWorksSDK\Searches\Results\CourtRecord;
 use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult\CriminalRecord\Incarceration;
-use TenantCloud\TazWorksSDK\Searches\Results\DefendantPlaintiff;
 
 final class CriminalRecord
 {
@@ -17,7 +16,5 @@ final class CriminalRecord
 		public readonly ?Incarceration $incarceration = null,
 		public readonly ?ProbationParole $probation = null,
 		public readonly ?ProbationParole $parole = null,
-	)
-	{
-	}
+	) {}
 }

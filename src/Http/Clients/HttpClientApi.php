@@ -14,9 +14,7 @@ class HttpClientApi implements ClientApi
 	private function __construct(
 		private readonly HttpTazWorksClient $httpTazWorksClient,
 		private readonly string $clientId,
-	)
-	{
-	}
+	) {}
 
 	public static function fromClient(HttpTazWorksClient $httpTazWorksClient, string $clientId): self
 	{

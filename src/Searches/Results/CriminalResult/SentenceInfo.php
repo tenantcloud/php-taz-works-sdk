@@ -12,7 +12,5 @@ final class SentenceInfo
 		public readonly ?string $sentenceLength = null,
 		public readonly ?string $type = null,
 		public readonly ?string $description = null,
-	)
-	{
-	}
+	) {}
 }

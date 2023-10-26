@@ -2,10 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Fake\Clients\Orders;
 
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
-use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrdersApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderStatus;
@@ -15,7 +12,6 @@ use TenantCloud\TazWorksSDK\Clients\Orders\SubmitOrderDTO;
 use TenantCloud\TazWorksSDK\Fake\Clients\Orders\Searches\FakeOrderSearchesApi;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
-use TenantCloud\TazWorksSDK\Searches\SearchResultType;
 
 class FakeOrdersApi implements OrdersApi
 {

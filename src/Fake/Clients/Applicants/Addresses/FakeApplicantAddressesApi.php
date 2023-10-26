@@ -2,19 +2,12 @@
 
 namespace TenantCloud\TazWorksSDK\Fake\Clients\Applicants\Addresses;
 
-use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
 use Illuminate\Support\Str;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressesApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\UpsertAddressDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchStatus;
-use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchWithResultsDTO;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
-use Webmozart\Assert\Assert;
 
 class FakeApplicantAddressesApi implements AddressesApi
 {

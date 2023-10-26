@@ -13,7 +13,5 @@ class SubmitOrderDTO
 		public readonly bool $useQuickApp = false,
 		/** @var SearchResultType[] */
 		public readonly array $optionalSearches = [],
-	)
-	{
-	}
+	) {}
 }

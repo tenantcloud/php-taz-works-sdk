@@ -2,7 +2,6 @@
 
 namespace TenantCloud\TazWorksSDK\Fake\Clients;
 
-use Illuminate\Contracts\Cache\Repository;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantsApi;
 use TenantCloud\TazWorksSDK\Clients\ClientApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrdersApi;

@@ -4,7 +4,6 @@ namespace TenantCloud\TazWorksSDK\Searches\Results;
 
 use Carbon\CarbonImmutable;
 use TenantCloud\TazWorksSDK\Searches\Results\CourtRecord\JudgementInfo;
-use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult\CriminalRecord;
 
 final class CourtRecord
 {

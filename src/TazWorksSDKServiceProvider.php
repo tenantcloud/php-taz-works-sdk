@@ -85,4 +85,3 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 			->give('taz_works.serializer');
 	}
 }
-

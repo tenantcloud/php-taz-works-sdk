@@ -6,8 +6,6 @@ use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressesApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantsApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\SubmitOrderDTO;
 use TenantCloud\TazWorksSDK\Http\Clients\Applicants\Addresses\HttpApplicantAddressesApi;
 use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
 use Webmozart\Assert\Assert;
@@ -16,9 +14,7 @@ class HttpApplicantsApi implements ApplicantsApi
 {
 	public function __construct(
 		private readonly HttpTazWorksClient $httpTazWorksClient,
-	)
-	{
-	}
+	) {}
 
 	public function addresses(): AddressesApi
 	{

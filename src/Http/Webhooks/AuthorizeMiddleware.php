@@ -15,7 +15,7 @@ class AuthorizeMiddleware
 
 	public function handle(Request $request, Closure $next): Response
 	{
-		if ($request->header('Authorization') !== $this->authorization) {
+		if ($this->authorization !== $request->header('Authorization')) {
 			throw new AuthorizationException();
 		}
 

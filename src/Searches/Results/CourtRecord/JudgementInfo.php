@@ -11,7 +11,5 @@ final class JudgementInfo
 		public readonly ?string $judgementFor = null,
 		public readonly ?string $amount = null,
 		public readonly ?string $flag = null,
-	)
-	{
-	}
+	) {}
 }

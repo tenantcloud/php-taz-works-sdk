@@ -13,7 +13,5 @@ final class ProbationParole
 		public readonly ?string $countyOfSupervision = null,
 		public readonly ?string $length = null,
 		public readonly ?string $comments = null,
-	)
-	{
-	}
+	) {}
 }

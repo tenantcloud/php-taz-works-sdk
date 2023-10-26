@@ -6,8 +6,6 @@ use GoodPhp\Reflection\Type\PrimitiveType;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressesApi;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\UpsertAddressDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\ApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
 use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
 use Webmozart\Assert\Assert;
 
@@ -15,9 +13,7 @@ class HttpApplicantAddressesApi implements AddressesApi
 {
 	public function __construct(
 		private readonly HttpTazWorksClient $httpTazWorksClient,
-	)
-	{
-	}
+	) {}
 
 	public function list(string $applicantId): array
 	{

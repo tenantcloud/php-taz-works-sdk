@@ -1,15 +1,10 @@
 <?php
 
 use DMS\PHPUnitExtensions\ArraySubset\Constraint\ArraySubset;
-use GoodPhp\Serialization\SerializerBuilder;
 use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
-use Illuminate\Support\Benchmark;
 use Illuminate\Support\LazyCollection;
 use Symfony\Component\Finder\Finder;
-use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
 use TenantCloud\TazWorksSDK\Http\Serialization\SerializerFactory;
-use TenantCloud\TazWorksSDK\Searches\Results\BaseSubject;
-use TenantCloud\TazWorksSDK\Searches\Results\Subject;
 use TenantCloud\TazWorksSDK\Searches\SearchResultType;
 
 dataset(

@@ -13,7 +13,5 @@ final class Incarceration
 		public readonly ?string $sentenceLength = null,
 		public readonly ?CarbonImmutable $tentativeReleaseDate = null,
 		public readonly ?string $comments = null,
-	)
-	{
-	}
+	) {}
 }

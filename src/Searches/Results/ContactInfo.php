@@ -9,7 +9,5 @@ final class ContactInfo
 		public readonly array $phoneNumbers = [],
 		public readonly ?string $faxNumber = null,
 		public readonly ?string $email = null,
-	)
-	{
-	}
+	) {}
 }

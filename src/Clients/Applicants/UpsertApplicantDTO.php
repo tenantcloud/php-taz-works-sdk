@@ -2,12 +2,10 @@
 
 namespace TenantCloud\TazWorksSDK\Clients\Applicants;
 
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use GoodPhp\Serialization\TypeAdapter\Primitive\BuiltIn\Date;
 use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
 use TenantCloud\TazWorksSDK\TazAssert;
-use Webmozart\Assert\Assert;
 
 class UpsertApplicantDTO
 {
@@ -17,15 +15,14 @@ class UpsertApplicantDTO
 	public readonly bool $noMiddleName;
 
 	public function __construct(
-		public readonly string              $firstName,
-		public readonly ?string              $middleName,
-		public readonly string              $lastName,
-		public readonly string              $email,
-		public readonly ?string             $ssn = null,
+		public readonly string $firstName,
+		public readonly ?string $middleName,
+		public readonly string $lastName,
+		public readonly string $email,
+		public readonly ?string $ssn = null,
 		#[Date(format: 'Y-m-d')]
 		public readonly ?CarbonImmutable $dateOfBirth = null,
-	)
-	{
+	) {
 		if ($ssn) {
 			TazAssert::ssn($this->ssn);
 		}

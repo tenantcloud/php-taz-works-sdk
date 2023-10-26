@@ -6,32 +6,28 @@ use GoodPhp\Reflection\Type\Type;
 use GoodPhp\Serialization\Serializer;
 use GoodPhp\Serialization\TypeAdapter\Json\JsonTypeAdapter;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\RequestOptions;
-use Illuminate\Support\Arr;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use TenantCloud\GuzzleHelper\DumpRequestBody\HeaderObfuscator;
 use TenantCloud\GuzzleHelper\DumpRequestBody\JsonObfuscator;
 use TenantCloud\GuzzleHelper\GuzzleMiddleware;
 use TenantCloud\TazWorksSDK\Clients\ClientApi;
 use TenantCloud\TazWorksSDK\Http\Clients\HttpClientApi;
-use TenantCloud\TazWorksSDK\Http\Serialization\SerializerFactory;
 use TenantCloud\TazWorksSDK\TazWorksClient;
-use function TenantCloud\GuzzleHelper\psr_response_to_json;
 
 /**
  * @internal
  */
 class HttpTazWorksClient implements TazWorksClient
 {
-	private readonly HandlerStack $handlerStack;
 	/** todo: readonly in PHP 8.2 */
 	public Client $httpClient;
+
+	private readonly HandlerStack $handlerStack;
 
 	/**
 	 * @api
@@ -71,15 +67,15 @@ class HttpTazWorksClient implements TazWorksClient
 	{
 		if ($requestData) {
 			$serialized = $this->serializer
-				->adapter(JsonTypeAdapter::class, get_class($requestData))
+				->adapter(JsonTypeAdapter::class, $requestData::class)
 				->serialize($requestData);
 		}
 
 		$response = $this->httpClient->request($method, $url, [
-			'body' => $serialized ?? null,
+			'body'    => $serialized ?? null,
 			'headers' => [
 				'Content-Type' => 'application/json',
-			]
+			],
 		]);
 
 		return $this->serializer

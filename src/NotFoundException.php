@@ -2,7 +2,8 @@
 
 namespace TenantCloud\TazWorksSDK;
 
-class NotFoundException extends \RuntimeException
-{
+use RuntimeException;
 
+class NotFoundException extends RuntimeException
+{
 }

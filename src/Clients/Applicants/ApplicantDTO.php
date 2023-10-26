@@ -14,7 +14,5 @@ class ApplicantDTO
 		public readonly string $lastName,
 		public readonly string $email,
 		public readonly ?string $ssn = null,
-	)
-	{
-	}
+	) {}
 }

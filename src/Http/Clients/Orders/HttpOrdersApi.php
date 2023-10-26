@@ -2,9 +2,6 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Clients\Orders;
 
-use Carbon\CarbonInterval;
-use Illuminate\Queue\SyncQueue;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrdersApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderSubmittedEvent;
@@ -18,9 +15,7 @@ class HttpOrdersApi implements OrdersApi
 	public function __construct(
 		private readonly HttpTazWorksClient $httpTazWorksClient,
 		private readonly string $clientId,
-	)
-	{
-	}
+	) {}
 
 	public function searches(): OrderSearchesApi
 	{

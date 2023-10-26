@@ -6,7 +6,5 @@ class OrderCompletedEvent
 {
 	public function __construct(
 		public readonly string $id,
-	)
-	{
-	}
+	) {}
 }
