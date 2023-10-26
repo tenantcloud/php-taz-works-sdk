@@ -13,8 +13,6 @@ final class BaseSubject
 		public readonly ?string $lastName = null,
 		public readonly ?string $ssn = null,
 		public readonly ?CarbonImmutable $dateOfBirth = null,
-		public readonly ?int $age = null,
-	)
-	{
-	}
+		public readonly ?string $age = null,
+	) {}
 }

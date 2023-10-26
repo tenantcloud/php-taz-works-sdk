@@ -2,8 +2,6 @@
 
 namespace TenantCloud\TazWorksSDK\Searches\Results;
 
-use Carbon\CarbonImmutable;
-
 final class Address
 {
 	public function __construct(
@@ -14,9 +12,7 @@ final class Address
 		public readonly ?string $postalCode = null,
 		public readonly ?string $county = null,
 		public readonly ?string $country = null,
-		public readonly ?CarbonImmutable $startDate = null,
-		public readonly ?CarbonImmutable $endDate = null,
-	)
-	{
-	}
+		public readonly ?string $startDate = null,
+		public readonly ?string $endDate = null,
+	) {}
 }
