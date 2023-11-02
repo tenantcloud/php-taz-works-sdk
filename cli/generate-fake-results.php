@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$token = '';
+$token = getenv('TAZ_WORKS_API_TOKEN');
 $clientId = '7f8feafb-745b-4ea2-b50a-98b76da39c38';
 
 $variants = [

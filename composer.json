@@ -1,5 +1,5 @@
 {
-	"name": "tenantcloud/tazworks-sdk",
+	"name": "tenantcloud/taz-works-sdk",
 	"description": "SDK for TazWorks API",
 	"license": "MIT",
 	"require": {
