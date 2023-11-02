@@ -7,10 +7,11 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\SimpleCache\CacheInterface;
 use TenantCloud\TazWorksSDK\Clients\ClientApi;
 use TenantCloud\TazWorksSDK\Fake\Clients\FakeClientApi;
+use TenantCloud\TazWorksSDK\Searches\SearchResultType;
 use TenantCloud\TazWorksSDK\TazWorksClient;
 
 /**
- * @phpstan-type FakeClients array<string, array{ products: array<string, array{ searches: array<int, array{ type: SearchResultType, display_name: string }> }> }>
+ * @phpstan-type FakeClients array<string, array{ products: array<string, array{ searches: array<int, array{ type: SearchResultType, display_name: string, set: string }> }> }>
  */
 class FakeTazWorksClient implements TazWorksClient
 {

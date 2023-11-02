@@ -18,6 +18,7 @@ class FakeApplicantAddressesApi implements AddressesApi
 
 	public function find(string $applicantId, string $addressId): AddressDTO
 	{
+		/** @var AddressDTO */
 		return $this->tazWorksClient->cache->get($this->applicantAddressKey($applicantId, $addressId)) ?? throw new NotFoundException();
 	}
 
@@ -44,6 +45,7 @@ class FakeApplicantAddressesApi implements AddressesApi
 
 		$this->tazWorksClient->cache->set($this->applicantAddressKey($applicantId, $address), $address);
 
+		/** @var string[] $ids */
 		$ids = $this->tazWorksClient->cache->get($this->applicantAddressesKey($applicantId)) ?? [];
 		$this->tazWorksClient->cache->set($this->applicantAddressesKey($applicantId), [...$ids, $address->id]);
 

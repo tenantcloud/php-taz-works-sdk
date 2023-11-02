@@ -24,6 +24,7 @@ class HttpOrdersApi implements OrdersApi
 
 	public function find(string $id): OrderDTO
 	{
+		/** @var OrderDTO */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'GET',
 			url: "orders/{$id}",
@@ -34,6 +35,7 @@ class HttpOrdersApi implements OrdersApi
 
 	public function submit(SubmitOrderDTO $data): OrderDTO
 	{
+		/** @var OrderDTO $order */
 		$order = $this->httpTazWorksClient->performJsonRequest(
 			method: 'POST',
 			url: 'orders',

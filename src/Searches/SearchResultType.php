@@ -10,6 +10,9 @@ enum SearchResultType: string
 	case COUNTY_CRIMINAL_RECORD = 'COUNTY_CRIMINAL_RECORD';
 	case NATIONAL_CRIMINAL_DATABASE_ALIAS = 'NATIONAL_CRIMINAL_DATABASE_ALIAS';
 
+	/**
+	 * @return class-string<CriminalResult>|class-string<NationalCriminalResult>
+	 */
 	public function className(): string
 	{
 		return match ($this) {

@@ -62,8 +62,10 @@ class HttpTazWorksClient implements TazWorksClient
 
 	/**
 	 * @internal
+	 *
+	 * @param Type|class-string $responseType
 	 */
-	public function performJsonRequest(string $method, string $url, ?object $requestData, string|Type $responseType): array|object
+	public function performJsonRequest(string $method, string $url, ?object $requestData, string|Type $responseType): mixed
 	{
 		if ($requestData) {
 			$serialized = $this->serializer

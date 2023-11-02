@@ -25,6 +25,7 @@ class FakeApplicantsApi implements ApplicantsApi
 
 	public function find(string $id): ApplicantDTO
 	{
+		/** @var ApplicantDTO */
 		return $this->tazWorksClient->cache->get($this->applicantKey($id)) ?? throw new NotFoundException();
 	}
 

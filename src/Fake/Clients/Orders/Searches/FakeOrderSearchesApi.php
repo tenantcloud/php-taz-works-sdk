@@ -12,8 +12,13 @@ use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchStatus;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchWithResultsDTO;
 use TenantCloud\TazWorksSDK\Fake\FakeTazWorksClient;
 use TenantCloud\TazWorksSDK\NotFoundException;
+use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult;
+use TenantCloud\TazWorksSDK\Searches\Results\NationalCriminalDatabaseAlias\NationalCriminalResult;
 use Webmozart\Assert\Assert;
 
+/**
+ * @phpstan-type CacheOrderSearch array{ search: OrderSearchDTO, set: string }
+ */
 class FakeOrderSearchesApi implements OrderSearchesApi
 {
 	public function __construct(
@@ -23,6 +28,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 
 	public function find(string $orderId, string $orderSearchId): OrderSearchDTO
 	{
+		/** @var CacheOrderSearch $data */
 		$data = $this->tazWorksClient->cache->get($this->orderSearchKey($orderId, $orderSearchId)) ?? throw new NotFoundException();
 
 		return $data['search'];
@@ -32,7 +38,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 	{
 		$this->upsertOrderSearches($orderId);
 
-		/** @var array<int, string> $searchIds */
+		/** @var string[] $searchIds */
 		$searchIds = $this->tazWorksClient->cache->get($this->orderSearchesKey($orderId));
 
 		return array_map(fn (string $id) => $this->find($orderId, $id), $searchIds);
@@ -42,15 +48,16 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 	{
 		$this->upsertOrderSearches($orderId);
 
-		['search' => $orderSearch, 'set' => $set] = $this->tazWorksClient->cache->get($this->orderSearchKey($orderId, $orderSearchId)) ?? throw new NotFoundException();
+		/** @var CacheOrderSearch $data */
+		$data = $this->tazWorksClient->cache->get($this->orderSearchKey($orderId, $orderSearchId)) ?? throw new NotFoundException();
 
 		return new OrderSearchWithResultsDTO(
-			search: $orderSearch,
-			results: $this->searchData($orderSearch, $set)
+			search: $data['search'],
+			results: $this->searchData($data['search'], $data['set'])
 		);
 	}
 
-	private function searchData(OrderSearchDTO $orderSearch, string $set): object
+	private function searchData(OrderSearchDTO $orderSearch, string $set): CriminalResult|NationalCriminalResult
 	{
 		$raw = file_get_contents(__DIR__ . "/../../../../../resources/results/{$orderSearch->type->value}/{$set}.json");
 
@@ -58,6 +65,7 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 			throw new InvalidArgumentException("Fake report results '{$set}' not found");
 		}
 
+		/** @var CriminalResult|NationalCriminalResult */
 		return $this->tazWorksClient
 			->serializer
 			->adapter(JsonTypeAdapter::class, $orderSearch->type->className())
@@ -74,6 +82,9 @@ class FakeOrderSearchesApi implements OrderSearchesApi
 			->client($this->clientId)
 			->orders()
 			->find($orderId);
+
+		Assert::string($order->applicantId);
+		Assert::string($order->clientProductId);
 
 		$applicant = $this->tazWorksClient
 			->client($this->clientId)

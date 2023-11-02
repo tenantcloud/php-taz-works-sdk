@@ -23,7 +23,7 @@ class UpsertApplicantDTO
 		#[Date(format: 'Y-m-d')]
 		public readonly ?CarbonImmutable $dateOfBirth = null,
 	) {
-		if ($ssn) {
+		if ($this->ssn) {
 			TazAssert::ssn($this->ssn);
 		}
 

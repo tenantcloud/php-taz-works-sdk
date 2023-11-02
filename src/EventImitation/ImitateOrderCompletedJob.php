@@ -27,7 +27,7 @@ class ImitateOrderCompletedJob implements ShouldQueue
 			->orders()
 			->find($this->orderId);
 
-		if ($order->status->partiallyComplete() || $order->status === OrderStatus::COMPLETE) {
+		if ($order->status?->partiallyComplete() || $order->status === OrderStatus::COMPLETE) {
 			$events->dispatch(new OrderSearchCompletedEvent(Str::uuid()->toString(), $this->orderId));
 		}
 

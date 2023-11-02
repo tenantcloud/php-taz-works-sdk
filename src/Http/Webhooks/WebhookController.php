@@ -22,11 +22,7 @@ final class WebhookController
 	 */
 	public function __invoke(Request $request): Response
 	{
-		// Event type is not supported by the SDK, ignore
-		if (!WebhookEventType::tryFrom($request->input('event'))) {
-			return new Response(status: Response::HTTP_NO_CONTENT);
-		}
-
+		/** @var WebhookDTO $body */
 		$body = $this->serializer
 			->adapter(PrimitiveTypeAdapter::class, WebhookDTO::class)
 			->deserialize($request->all());

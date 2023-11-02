@@ -3,6 +3,7 @@
 namespace TenantCloud\TazWorksSDK\Http\Webhooks;
 
 use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Naming\SerializedName;
+use GoodPhp\Serialization\TypeAdapter\Primitive\ClassProperties\Property\UseDefaultForUnexpected;
 use Illuminate\Support\Str;
 
 /**
@@ -23,11 +24,12 @@ class WebhookDTO
 		#[SerializedName('resourceGuid')]
 		public readonly string $resourceId,
 		public readonly string $resourcePath,
-		public readonly WebhookEventType $event,
 		#[SerializedName('baseClientGuid')]
 		public readonly string $baseClientId,
 		#[SerializedName('instanceId')]
 		public readonly string $instanceId,
+		#[UseDefaultForUnexpected]
+		public readonly ?WebhookEventType $event = null,
 	) {}
 
 	public function idFromResourcePath(string $after, string $before): string

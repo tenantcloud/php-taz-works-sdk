@@ -16,6 +16,9 @@ use TenantCloud\TazWorksSDK\Http\Serialization\SerializerFactory;
 use TenantCloud\TazWorksSDK\Http\Webhooks\AuthorizeMiddleware;
 use TenantCloud\TazWorksSDK\Http\Webhooks\WebhookController;
 
+/**
+ * @phpstan-import-type FakeClients from FakeTazWorksClient
+ */
 class TazWorksSDKServiceProvider extends ServiceProvider
 {
 	public function boot(): void
@@ -24,13 +27,7 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 			__DIR__ . '/../resources/config/taz_works.php' => $this->app->configPath('taz_works.php'),
 		]);
 
-		$config = $this->app->make(ConfigRepository::class);
-		$router = $this->app->make(Router::class);
-
-		$router->middleware(AuthorizeMiddleware::class)
-			->prefix($config->get('taz_works.webhooks.prefix'))
-			->post('/', WebhookController::class)
-			->name('taz_works.webhooks');
+		$this->webhooksRoute();
 	}
 
 	public function register(): void
@@ -42,46 +39,82 @@ class TazWorksSDKServiceProvider extends ServiceProvider
 			'taz_works'
 		);
 
-		$config = $this->app->make(ConfigRepository::class);
-
-		$this->app->bind(AuthorizeMiddleware::class, function (Container $container) {
-			$config = $container->make(ConfigRepository::class);
-
-			return new AuthorizeMiddleware(
-				$config->get('taz_works.webhooks.authorization'),
-			);
-		});
+		$this->registerWebhookBindings();
 
 		$this->app->singleton('taz_works.serializer', fn () => SerializerFactory::make());
 
-		if (!$config->get('taz_works.fake.enabled')) {
-			$this->app->singleton(TazWorksClient::class, static function (Container $container) {
-				$config = $container->make(ConfigRepository::class);
-
-				return new HttpTazWorksClient(
-					$config->get('taz_works.base_url'),
-					$config->get('taz_works.api_token'),
-					$container->make('taz_works.serializer'),
-					$config->get('taz_works.webhooks.imitate') ? $container->make(EventImitatingEventDispatcher::class) : null,
-					$container->make(LoggerInterface::class),
-				);
-			});
+		if (!$this->app->make(ConfigRepository::class)->get('taz_works.fake.enabled')) {
+			$this->registerHttpClient();
 		} else {
-			$this->app->singleton(TazWorksClient::class, static function (Container $container) {
-				$config = $container->make(ConfigRepository::class);
-
-				return new FakeTazWorksClient(
-					$container->make(CacheRepository::class),
-					$container->make('taz_works.serializer'),
-					$config->get('taz_works.fake.clients'),
-					$container->make(EventImitatingEventDispatcher::class),
-				);
-			});
+			$this->registerFakeClient();
 		}
+	}
+
+	private function webhooksRoute(): void
+	{
+		$config = $this->app->make(ConfigRepository::class);
+		$router = $this->app->make(Router::class);
+
+		/** @var string $prefix */
+		$prefix = $config->get('taz_works.webhooks.prefix');
+
+		$router->middleware(AuthorizeMiddleware::class)
+			->prefix($prefix)
+			->post('/', WebhookController::class)
+			->name('taz_works.webhooks');
+	}
+
+	private function registerWebhookBindings(): void
+	{
+		$this->app->bind(AuthorizeMiddleware::class, function (Container $container) {
+			$config = $container->make(ConfigRepository::class);
+
+			/** @var string $authorization */
+			$authorization = $config->get('taz_works.webhooks.authorization');
+
+			return new AuthorizeMiddleware($authorization);
+		});
 
 		$this->app
 			->when(WebhookController::class)
 			->needs(Serializer::class)
 			->give('taz_works.serializer');
+	}
+
+	private function registerHttpClient(): void
+	{
+		$this->app->singleton(TazWorksClient::class, static function (Container $container) {
+			$config = $container->make(ConfigRepository::class);
+
+			/** @var string $baseUrl */
+			$baseUrl = $config->get('taz_works.base_url');
+			/** @var string $apiToken */
+			$apiToken = $config->get('taz_works.api_token');
+
+			return new HttpTazWorksClient(
+				$baseUrl,
+				$apiToken,
+				$container->make('taz_works.serializer'),
+				$config->get('taz_works.webhooks.imitate') ? $container->make(EventImitatingEventDispatcher::class) : null,
+				$container->make(LoggerInterface::class),
+			);
+		});
+	}
+
+	private function registerFakeClient(): void
+	{
+		$this->app->singleton(TazWorksClient::class, static function (Container $container) {
+			$config = $container->make(ConfigRepository::class);
+
+			/** @var FakeClients $clients */
+			$clients = $config->get('taz_works.fake.clients');
+
+			return new FakeTazWorksClient(
+				$container->make(CacheRepository::class),
+				$container->make('taz_works.serializer'),
+				$clients,
+				$container->make(EventImitatingEventDispatcher::class),
+			);
+		});
 	}
 }

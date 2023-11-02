@@ -27,6 +27,7 @@ class FakeOrdersApi implements OrdersApi
 
 	public function find(string $id): OrderDTO
 	{
+		/** @var OrderDTO */
 		return $this->tazWorksClient->cache->get($this->orderKey($id)) ?? throw new NotFoundException();
 	}
 

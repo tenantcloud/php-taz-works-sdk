@@ -9,6 +9,8 @@ use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchesApi;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchWithResultsDTO;
 use TenantCloud\TazWorksSDK\Http\HttpTazWorksClient;
+use TenantCloud\TazWorksSDK\Searches\Results\CriminalResult;
+use TenantCloud\TazWorksSDK\Searches\Results\NationalCriminalDatabaseAlias\NationalCriminalResult;
 
 class HttpOrderSearchesApi implements OrderSearchesApi
 {
@@ -18,6 +20,7 @@ class HttpOrderSearchesApi implements OrderSearchesApi
 
 	public function list(string $orderId): array
 	{
+		/** @var OrderSearchDTO[] */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'GET',
 			url: "orders/{$orderId}/searches",
@@ -36,8 +39,10 @@ class HttpOrderSearchesApi implements OrderSearchesApi
 			->adapter(JsonTypeAdapter::class, OrderSearchDTO::class)
 			->deserialize($responseBody);
 
+		/** @var array{ results: mixed } $arrayResponseBody */
 		$arrayResponseBody = json_decode($responseBody, true, 512, JSON_THROW_ON_ERROR);
 
+		/** @var CriminalResult|NationalCriminalResult|null $resultsDto */
 		$resultsDto = $this->httpTazWorksClient->serializer
 			->adapter(PrimitiveTypeAdapter::class, $basicDto->type->className())
 			->deserialize($arrayResponseBody['results']);

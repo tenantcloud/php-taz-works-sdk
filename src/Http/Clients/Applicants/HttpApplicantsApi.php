@@ -23,6 +23,7 @@ class HttpApplicantsApi implements ApplicantsApi
 
 	public function find(string $id): ApplicantDTO
 	{
+		/** @var ApplicantDTO */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'GET',
 			url: "applicants/{$id}",
@@ -35,6 +36,7 @@ class HttpApplicantsApi implements ApplicantsApi
 	{
 		Assert::null($data->id);
 
+		/** @var ApplicantDTO */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'POST',
 			url: 'applicants',
@@ -47,6 +49,7 @@ class HttpApplicantsApi implements ApplicantsApi
 	{
 		$data->id = $id;
 
+		/** @var ApplicantDTO */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'PUT',
 			url: "applicants/{$id}",

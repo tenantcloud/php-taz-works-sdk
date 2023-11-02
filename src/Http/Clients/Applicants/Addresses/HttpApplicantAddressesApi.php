@@ -17,6 +17,7 @@ class HttpApplicantAddressesApi implements AddressesApi
 
 	public function list(string $applicantId): array
 	{
+		/** @var AddressDTO[] */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'GET',
 			url: "applicants/{$applicantId}/addresses",
@@ -29,6 +30,7 @@ class HttpApplicantAddressesApi implements AddressesApi
 	{
 		Assert::null($data->id);
 
+		/** @var AddressDTO */
 		return $this->httpTazWorksClient->performJsonRequest(
 			method: 'POST',
 			url: "applicants/{$applicantId}/addresses",

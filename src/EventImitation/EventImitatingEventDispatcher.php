@@ -16,7 +16,7 @@ class EventImitatingEventDispatcher implements EventDispatcherInterface
 		private readonly QueueConnectionFactory $queueConnectionFactory,
 	) {}
 
-	public function dispatch(object $event)
+	public function dispatch(object $event): object
 	{
 		if ($event instanceof OrderSubmittedEvent) {
 			$job = (new ImitateOrderCompletedJob($event->order->id, $event->clientId))->afterCommit();
@@ -31,5 +31,7 @@ class EventImitatingEventDispatcher implements EventDispatcherInterface
 
 			$this->bus->dispatch($job);
 		}
+
+		return $event;
 	}
 }
