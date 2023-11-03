@@ -4,7 +4,7 @@ namespace TenantCloud\TazWorksSDK\Http\Serialization;
 
 use DateTimeInterface;
 use GoodPhp\Reflection\Reflection\Attributes\Attributes;
-use GoodPhp\Reflection\Type\Type;
+use GoodPhp\Reflection\Type\NamedType;
 use GoodPhp\Serialization\TypeAdapter\Primitive\BuiltIn\DateTimeMapper;
 use GoodPhp\Serialization\TypeAdapter\Primitive\MapperMethods\Acceptance\BaseTypeAcceptedByAcceptanceStrategy;
 use GoodPhp\Serialization\TypeAdapter\Primitive\MapperMethods\MapFrom;
@@ -24,7 +24,7 @@ class SafeDateMapper
 	}
 
 	#[MapFrom(PrimitiveTypeAdapter::class, new BaseTypeAcceptedByAcceptanceStrategy(DateTimeInterface::class))]
-	public function from(string $value, Type $type): ?DateTimeInterface
+	public function from(string $value, NamedType $type): ?DateTimeInterface
 	{
 		if (str_contains($value, 'X')) {
 			return null;
