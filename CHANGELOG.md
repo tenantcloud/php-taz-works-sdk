@@ -1,3 +1,11 @@
+# [1.0.0-alpha.2](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* PHPStan issue ([3f0173e](https://github.com/tenantcloud/php-taz-works-sdk/commit/3f0173e6765cfada4078b1fe2c4f6dd1e21aa234))
+* Use alpha version of serialization ([6e29561](https://github.com/tenantcloud/php-taz-works-sdk/commit/6e2956141745ce5f65555bb3e0548641a1035482))
+
 # 1.0.0-alpha.1 (2023-11-02)
 
 
