@@ -1,3 +1,10 @@
+# [1.0.0-alpha.3](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2023-12-06)
+
+
+### Bug Fixes
+
+* Broken webhooks ([778b9bf](https://github.com/tenantcloud/php-taz-works-sdk/commit/778b9bfc188ec78cac53a04a0375d97134a0ed38))
+
 # [1.0.0-alpha.2](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2023-11-03)
 
 
