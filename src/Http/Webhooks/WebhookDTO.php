@@ -26,7 +26,7 @@ class WebhookDTO
 		public readonly string $resourcePath,
 		#[SerializedName('baseClientGuid')]
 		public readonly string $baseClientId,
-		#[SerializedName('instanceId')]
+		#[SerializedName('instanceGuid')]
 		public readonly string $instanceId,
 		#[UseDefaultForUnexpected]
 		public readonly ?WebhookEventType $event = null,

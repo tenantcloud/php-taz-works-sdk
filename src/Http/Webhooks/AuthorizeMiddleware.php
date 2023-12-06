@@ -5,7 +5,7 @@ namespace TenantCloud\TazWorksSDK\Http\Webhooks;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthorizeMiddleware
 {
