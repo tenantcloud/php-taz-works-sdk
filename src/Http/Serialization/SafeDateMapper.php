@@ -26,7 +26,7 @@ class SafeDateMapper
 	#[MapFrom(PrimitiveTypeAdapter::class, new BaseTypeAcceptedByAcceptanceStrategy(DateTimeInterface::class))]
 	public function from(string $value, NamedType $type): ?DateTimeInterface
 	{
-		if (str_contains($value, 'X')) {
+		if (str_contains($value, 'X') || str_contains($value, 'Partial')) {
 			return null;
 		}
 
