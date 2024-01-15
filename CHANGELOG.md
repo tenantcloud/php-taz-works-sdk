@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2024-01-15)
+
+
+### Bug Fixes
+
+* Deserialization of partial dates ([#2](https://github.com/tenantcloud/php-taz-works-sdk/issues/2)) ([e3a59f9](https://github.com/tenantcloud/php-taz-works-sdk/commit/e3a59f90a90e78f8c13d0e462aab0ed2eac62fc9))
+
 # [1.0.0-alpha.3](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2023-12-06)
 
 
