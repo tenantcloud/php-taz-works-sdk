@@ -11,7 +11,6 @@ use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\AddressType;
 use TenantCloud\TazWorksSDK\Clients\Applicants\Addresses\UpsertAddressDTO;
 use TenantCloud\TazWorksSDK\Clients\Applicants\UpsertApplicantDTO;
-use TenantCloud\TazWorksSDK\Clients\Orders\OrderDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\OrderStatus;
 use TenantCloud\TazWorksSDK\Clients\Orders\Searches\OrderSearchDTO;
 use TenantCloud\TazWorksSDK\Clients\Orders\SubmitOrderDTO;
