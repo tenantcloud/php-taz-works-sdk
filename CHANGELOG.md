@@ -1,3 +1,10 @@
+# [1.0.0-alpha.6](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2024-01-16)
+
+
+### Features
+
+* List applicant orders ([#4](https://github.com/tenantcloud/php-taz-works-sdk/issues/4)) ([727ff15](https://github.com/tenantcloud/php-taz-works-sdk/commit/727ff15de350d7598e183d343bb472c4d534116c))
+
 # [1.0.0-alpha.5](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2024-01-16)
 
 
