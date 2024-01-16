@@ -32,6 +32,7 @@ class SafeDateMapper
 		}
 
 		// See tests for why this is done this way. TazWorks loves to return invalid dates.
+		/** @var string $value */
 		$value = preg_replace('/[^0-9\/: ]/i', '', $value);
 
 		try {
