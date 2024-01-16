@@ -1,3 +1,10 @@
+# [1.0.0-alpha.5](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2024-01-16)
+
+
+### Bug Fixes
+
+* Date parsing for invalid dates ([#3](https://github.com/tenantcloud/php-taz-works-sdk/issues/3)) ([bc65d37](https://github.com/tenantcloud/php-taz-works-sdk/commit/bc65d37015a671af6afc57575c5d5bd3a615c583))
+
 # [1.0.0-alpha.4](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2024-01-15)
 
 
