@@ -25,6 +25,14 @@ class FakeOrdersApi implements OrdersApi
 		return new FakeOrderSearchesApi($this->tazWorksClient, $this->clientId);
 	}
 
+	public function listByApplicant(string $applicantId): array
+	{
+		/** @var array<int, string> $orderIds */
+		$orderIds = $this->tazWorksClient->cache->get($this->applicantOrdersKey($applicantId));
+
+		return array_map(fn (string $id) => $this->find($id), $orderIds);
+	}
+
 	public function find(string $id): OrderDTO
 	{
 		/** @var OrderDTO */
@@ -43,6 +51,10 @@ class FakeOrdersApi implements OrdersApi
 
 		$this->tazWorksClient->cache->set($this->orderKey($order), $order);
 
+		/** @var string[] $ids */
+		$ids = $this->tazWorksClient->cache->get($this->applicantOrdersKey($data->applicantGuid)) ?? [];
+		$this->tazWorksClient->cache->set($this->applicantOrdersKey($data->applicantGuid), [...$ids, $order->id]);
+
 		// For whatever reason, HTTP api doesn't return applicantGuid and clientProductGuid fields on submit. So we won't too.
 		$order = new OrderDTO(
 			id: $order->id,
@@ -60,5 +72,10 @@ class FakeOrdersApi implements OrdersApi
 		$id = $id instanceof OrderDTO ? $id->id : $id;
 
 		return "clients.{$this->clientId}.orders.{$id}";
+	}
+
+	private function applicantOrdersKey(string $applicantId): string
+	{
+		return "clients.{$this->clientId}.applicants.{$applicantId}.orders";
 	}
 }

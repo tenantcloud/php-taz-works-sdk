@@ -8,6 +8,11 @@ interface OrdersApi
 {
 	public function searches(): OrderSearchesApi;
 
+	/**
+	 * @return OrderDTO[]
+	 */
+	public function listByApplicant(string $applicantId): array;
+
 	public function find(string $id): OrderDTO;
 
 	public function submit(SubmitOrderDTO $data): OrderDTO;
