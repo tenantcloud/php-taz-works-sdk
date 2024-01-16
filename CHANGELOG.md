@@ -1,3 +1,10 @@
+# [1.0.0-alpha.7](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2024-01-16)
+
+
+### Bug Fixes
+
+* Fake lists broken when no entities were created beforehand ([#5](https://github.com/tenantcloud/php-taz-works-sdk/issues/5)) ([86d787f](https://github.com/tenantcloud/php-taz-works-sdk/commit/86d787f7020d3d4bc0f2922a58e7f6424df0bff3))
+
 # [1.0.0-alpha.6](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2024-01-16)
 
 
