@@ -2,6 +2,7 @@
 
 namespace TenantCloud\TazWorksSDK\Http\Serialization;
 
+use Carbon\Exceptions\InvalidArgumentException;
 use DateTimeInterface;
 use GoodPhp\Reflection\Reflection\Attributes\Attributes;
 use GoodPhp\Reflection\Type\NamedType;
@@ -30,6 +31,13 @@ class SafeDateMapper
 			return null;
 		}
 
-		return $this->delegate->from($value, $type);
+		// See tests for why this is done this way. TazWorks loves to return invalid dates.
+		$value = preg_replace('/[^0-9\/: ]/i', '', $value);
+
+		try {
+			return $this->delegate->from($value, $type);
+		} catch (InvalidArgumentException) {
+			return null;
+		}
 	}
 }
