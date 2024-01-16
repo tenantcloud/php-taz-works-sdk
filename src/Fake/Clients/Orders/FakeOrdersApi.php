@@ -28,7 +28,7 @@ class FakeOrdersApi implements OrdersApi
 	public function listByApplicant(string $applicantId): array
 	{
 		/** @var array<int, string> $orderIds */
-		$orderIds = $this->tazWorksClient->cache->get($this->applicantOrdersKey($applicantId));
+		$orderIds = $this->tazWorksClient->cache->get($this->applicantOrdersKey($applicantId)) ?? [];
 
 		return array_map(fn (string $id) => $this->find($id), $orderIds);
 	}

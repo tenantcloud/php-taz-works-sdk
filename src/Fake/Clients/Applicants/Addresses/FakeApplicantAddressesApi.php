@@ -25,7 +25,7 @@ class FakeApplicantAddressesApi implements AddressesApi
 	public function list(string $applicantId): array
 	{
 		/** @var array<int, string> $addressIds */
-		$addressIds = $this->tazWorksClient->cache->get($this->applicantAddressesKey($applicantId));
+		$addressIds = $this->tazWorksClient->cache->get($this->applicantAddressesKey($applicantId)) ?? [];
 
 		return array_map(fn (string $id) => $this->find($applicantId, $id), $addressIds);
 	}
