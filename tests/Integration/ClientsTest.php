@@ -76,6 +76,11 @@ class ClientsTest extends TestCase
 			clientProductGuid: $clientProductGuid,
 		));
 
+		$ordersForApplicant = $clientApi->orders()->listByApplicant($applicant->id);
+
+		expect($ordersForApplicant)->toHaveCount(1);
+		expect($ordersForApplicant[0]->id)->toBe($order->id);
+
 		expect($order->applicantId)->toBe(MissingValue::INSTANCE);
 		expect($order->clientProductId)->toBe(MissingValue::INSTANCE);
 
