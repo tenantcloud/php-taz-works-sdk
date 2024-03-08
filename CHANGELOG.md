@@ -1,3 +1,10 @@
+# [1.0.0-alpha.8](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2024-03-08)
+
+
+### Bug Fixes
+
+* Update deps ([#6](https://github.com/tenantcloud/php-taz-works-sdk/issues/6)) ([120d483](https://github.com/tenantcloud/php-taz-works-sdk/commit/120d483a4418b278bf494cab58fb526722ce03c9))
+
 # [1.0.0-alpha.7](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2024-01-16)
 
 
