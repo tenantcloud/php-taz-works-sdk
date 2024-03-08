@@ -1,3 +1,10 @@
+# [1.0.0-alpha.10](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2024-03-08)
+
+
+### Bug Fixes
+
+* Remove league/uri dependency ([#8](https://github.com/tenantcloud/php-taz-works-sdk/issues/8)) ([f4ca9fd](https://github.com/tenantcloud/php-taz-works-sdk/commit/f4ca9fd2e484e58f347c9f1e556a97b090f5f2bd))
+
 # [1.0.0-alpha.9](https://github.com/tenantcloud/php-taz-works-sdk/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2024-03-08)
 
 
